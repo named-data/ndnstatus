@@ -1,0 +1,12 @@
+#prefix, domain of the prefix (can be real or fake, used for unique id in
+#sorting), abbreviation for table display
+n(http://A.ws.ndn.ucla.edu:9695/?f=xml, ucla.edu/A, PARC)
+n(http://B.ws.ndn.ucla.edu:9695/?f=xml, ucla.edu/B, UCLA-APPS)
+n(http://C.ws.ndn.ucla.edu:9695/?f=xml, ucla.edu/C, ARIZONA)
+n(http://D.ws.ndn.ucla.edu:9695/?f=xml, ucla.edu/D, CAIDA)
+n(http://ndnapp1.cs.illinois.edu:9695/?f=xml, ucla.edu/E, ILLINOIS)
+w(http://A.ws.ndn.ucla.edu:9696, ucla.edu/A, PARC)
+w(http://B.ws.ndn.ucla.edu:9696, ucla.edu/B, UCLA-APPS)
+w(http://C.ws.ndn.ucla.edu:9696, ucla.edu/C, ARIZONA)
+w(http://D.ws.ndn.ucla.edu:9696, ucla.edu/D, CAIDA)
+w(http://ndnapp1.cs.illinois.edu:9696, ucla.edu/E, ILLINOIS)

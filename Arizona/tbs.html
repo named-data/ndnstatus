@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>NDN Testbed Debug</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+<script type="text/JavaScript" src="mjs.js"></script>
+</head>
+<body><font size="5" face="arial">NDN Testbed Snapshot:2013/11/11 09:19:05 (MST)</font><br />(Only the main site prefixes are shown)<br />
+<br/>
+<font size="4" face="arial"><p>Site Prefix Status:<br /></p></font>
+<input id="b1" type="button" value="Show Site Prefix Status" style="width: 250px" onclick="changeTableStatus(this)"/>
+
+<div id="table1" class="hidden">
+<div class="td">
+<ul>
+<li class="l1">For each entry in the first row:
+<ul>
+		<li class="l2">
+			<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+			<span class="c1f1">means the node is currently online.</span>
+		</li> 
+		<li class="l2">
+			<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+			<span class="c1f1">means the node is currently offline.</span>
+		</li>
+</ul></li>
+
+<li class="l1">For the second row: each entry signifies the CCNX version used.</li>
+
+<li class="l1">For the third row: each entry signifies start time of the node.</li>
+
+<li class="l1">For the fourth row: each entry signifies clock skew between the entry and the machine for this script.
+<ul>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the clock skew is less than 5 seconds.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FFFF00";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the clock skew is greater than 5 and less than or equal to 30 seconds.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the clock skew is greater than 30 seconds.</span>
+</li>
+</ul></li>
+
+<li class="l1">For everything below the fourth row:
+<ul>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the prefix appears on the ccndstatus page via an OSPFN route.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the prefix does not appear.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FFFF00";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means the prefix does not appear, but the node may solely rely on AUTOREG to forward packets to internal hosts.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#C0C0C0";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">the prefix does not appear because the node is down.</span>
+</li>
+</ul></li>
+</ul>
+</div>
+<table border ="1"; width="2000px";>
+<tr><td>&nbsp;</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://hobo.cs.arizona.edu:9695" target="_blank">UA</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://ccnhub.caida.org:9695" target="_blank">UCSD</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://mccoy.netsec.colostate.edu:9695" target="_blank">CSU</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://netlogic.cs.memphis.edu:9695" target="_blank">UM</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://northpole.ece.neu.edu:9695" target="_blank">NEU</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://ndnlx1.parc.xerox.com:9695" target="_blank">PARC</td>
+<td width = 100px; bgcolor ="#FF0000"><a href = "http://162.105.146.26:9695" target="_blank">PKU</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://ndnhub.ics.uci.edu:9695" target="_blank">UCI</td>
+<td width = 100px; bgcolor ="#FF0000"><a href = "http://spurs.cs.ucla.edu:9695" target="_blank">UCLA</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://borges.metwi.ucla.edu:9695" target="_blank">REMAP</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://ndn.cs.illinois.edu:9695" target="_blank">UIUC</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://128.252.153.193:9695" target="_blank">WashU</td>
+<td width = 100px; bgcolor ="#FF0000"><a href = "http://sppatla1.arl.wustl.edu:9695" target="_blank">SPPATLA1</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://spphous1.arl.wustl.edu:9695" target="_blank">SPPHOUS1</td>
+<td width = 100px; bgcolor ="#FF0000"><a href = "http://sppkans1.arl.wustl.edu:9695" target="_blank">SPPKANS1</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://sppsalt1.arl.wustl.edu:9695" target="_blank">SPPSALT1</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://sppwash1.arl.wustl.edu:9695" target="_blank">SPPWASH1</td>
+</tr>
+<tr>
+<td width = 300px;>API</td>
+<td>6004</td>
+<td>7001</td>
+<td>7001</td>
+<td>8000</td>
+<td>7000</td>
+<td>7001</td>
+<td>&nbsp;</td>
+<td>7001</td>
+<td>&nbsp;</td>
+<td>8002</td>
+<td>7001</td>
+<td>7001</td>
+<td>&nbsp;</td>
+<td>7001</td>
+<td>&nbsp;</td>
+<td>7001</td>
+<td>7001</td>
+</tr>
+<tr>
+<td width = 300px;>Start Time (MST)</td>
+<td>2013/04/08 19:31:43</td>
+<td>2013/10/31 10:49:38</td>
+<td>2013/11/08 12:37:37</td>
+<td>2013/11/04 11:05:01</td>
+<td>2013/09/06 14:59:47</td>
+<td>2013/09/17 13:06:56</td>
+<td>&nbsp;</td>
+<td>2013/11/05 13:10:17</td>
+<td>&nbsp;</td>
+<td>2013/11/01 13:08:59</td>
+<td>2013/11/04 23:09:22</td>
+<td>2013/11/08 15:47:42</td>
+<td>&nbsp;</td>
+<td>2013/11/05 15:23:09</td>
+<td>&nbsp;</td>
+<td>2013/11/05 05:43:21</td>
+<td>2013/11/05 15:28:08</td>
+</tr>
+<tr>
+<td width = 300px;>Clock Skew</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://hobo.cs.arizona.edu:9695" target="_blank">ccnx:/ndn/arizona.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://ccnhub.caida.org:9695" target="_blank">ccnx:/ndn/caida.org</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://mccoy.netsec.colostate.edu:9695" target="_blank">ccnx:/ndn/colostate.edu/netsec</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://netlogic.cs.memphis.edu:9695" target="_blank">ccnx:/ndn/memphis.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="" target="_blank">ccnx:/ndn/neu.edu/northpole</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://ndnlx1.parc.xerox.com:9695" target="_blank">ccnx:/ndn/parc.com</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://162.105.146.26:9695" target="_blank">ccnx:/ndn/pku.edu</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://ndnhub.ics.uci.edu:9695" target="_blank">ccnx:/ndn/uci.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://spurs.cs.ucla.edu:9695" target="_blank">ccnx:/ndn/ucla.edu</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://spurs.cs.ucla.edu:9695" target="_blank">ccnx:/ndn/ucla.edu/wentao.shang/repo</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://borges.metwi.ucla.edu:9695" target="_blank">ccnx:/ndn/remap.ucla.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://ndn.cs.illinois.edu:9695" target="_blank">ccnx:/ndn/uiuc.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://ndn.cs.illinois.edu:9695" target="_blank">ccnx:/ndn/uiuc.edu/summary</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://128.252.153.193:9695" target="_blank">ccnx:/ndn/wustl.edu</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FFFF00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://128.252.153.193:9695" target="_blank">ccnx:/ndn/wustl.edu/TMQ1</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FFFF00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://sppatla1.arl.wustl.edu:9695" target="_blank">ccnx:/ndn/sppatla1</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://spphous1.arl.wustl.edu:9695" target="_blank">ccnx:/ndn/spphous1</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://sppkans1.arl.wustl.edu:9695" target="_blank">ccnx:/ndn/sppkans1</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://sppsalt1.arl.wustl.edu:9695" target="_blank">ccnx:/ndn/sppsalt1</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FFFF00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr>
+<td width = 300px;><a href="http://sppwash1.arl.wustl.edu:9695" target="_blank">ccnx:/ndn/sppwash1</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#FFFF00">&nbsp;</td>
+</tr>
+</table></div>
+
+<p><font size="4" face="arial"><p>WebSocket Proxy Status:<br /></p></font>
+<br\><input id = "b2" type="button" value="Show WebSocket Proxy Status" style="width: 250px" onclick="changeTableStatus(this)"/>
+<div id="table2" class="hidden">
+<div class="td">
+<div><p>Shows the status of the websocket proxies.</p></div>
+<ul>
+<li class="l1">For each entry in the first row:
+<ul>
+	<li class="l2">
+		<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+		<span class="c1f1">means CCNx of current node (port 9695) is online.</span>
+	</li> 
+	<li class="l2">
+		<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+		<span class="c1f1">means CCNx of current node (port 9695) is offline.</span>
+	</li>
+</ul>
+</li>
+
+<li class="l1">For each entry in the second row:
+<ul>
+		<li class="l2">
+			<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+			<span class="c1f1">means TCP connections can be established with port 9696(WebSocket Proxy) of current node.</span>
+		</li> 
+		<li class="l2">
+			<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+			<span class="c1f1">means TCP connections cannot be established with port 9696 (WebSocket Proxy) of current node.</span>
+		</li>
+</ul>
+</li>
+</ul>
+</div>
+<table border ="1"; width="700px";>
+<tr><td>CCNx Stack Status</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://A.ws.ndn.ucla.edu:9695" target="_blank">PARC</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://B.ws.ndn.ucla.edu:9695" target="_blank">UCLA-APPS</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://C.ws.ndn.ucla.edu:9695" target="_blank">ARIZONA</td>
+<td width = 100px; bgcolor ="#FF0000"><a href = "http://D.ws.ndn.ucla.edu:9695" target="_blank">CAIDA</td>
+<td width = 100px; bgcolor ="#7CFC00"><a href = "http://ndnapp1.cs.illinois.edu:9695" target="_blank">ILLINOIS</td>
+</tr>
+<tr><td>Proxy Status</td>
+<td width = 100px; bgcolor ="#7CFC00">&nbsp;</td>
+<td width = 100px; bgcolor ="#7CFC00">&nbsp;</td>
+<td width = 100px; bgcolor ="#7CFC00">&nbsp;</td>
+<td width = 100px; bgcolor ="#FF0000">&nbsp;</td>
+<td width = 100px; bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+</table>
+
+</div>
+
+<br />
+<br />
+<div><font size="4" face="arial">Tunnel Configuration Status:</font></div>
+<br/>
+<input id = "b3" type="button" value="Show Tunnel Configuration Status" style="width: 250px" onclick="changeTableStatus(this)"/>
+<div id="table3" class="hidden">
+<div class="td">
+<div><p>Shows whether a tunnel is configured according to the testbed topology.</p></div>
+
+<li class="l1">
+<ul>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#7CFC00";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means tunnel is configured correctly.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#FF0000";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means tunnel is not configured.</span>
+</li>
+<li class="l2">
+	<span class="c1"><table border ="1";><tr><td width = 100px; bgcolor ="#C0C0C0";>&nbsp;</td></tr></table></span>
+	<span class="c1f1">means tunnel is not in topology, and not configured.</span>
+</li>
+</ul>
+</li>
+</div>
+</p><table border ="1"; width="2000px";>
+<tr><td>&nbsp;</td>
+<td width = 100px;><a href = "http://hobo.cs.arizona.edu:9695" target="_blank">UA</a></td>
+<td width = 100px;><a href = "http://ccnhub.caida.org:9695" target="_blank">UCSD</a></td>
+<td width = 100px;><a href = "http://mccoy.netsec.colostate.edu:9695" target="_blank">CSU</a></td>
+<td width = 100px;><a href = "http://netlogic.cs.memphis.edu:9695" target="_blank">UM</a></td>
+<td width = 100px;><a href = "http://northpole.ece.neu.edu:9695" target="_blank">NEU</a></td>
+<td width = 100px;><a href = "http://ndnlx1.parc.xerox.com:9695" target="_blank">PARC</a></td>
+<td width = 100px;><a href = "http://162.105.146.26:9695" target="_blank">PKU</a></td>
+<td width = 100px;><a href = "http://ndnhub.ics.uci.edu:9695" target="_blank">UCI</a></td>
+<td width = 100px;><a href = "http://spurs.cs.ucla.edu:9695" target="_blank">UCLA</a></td>
+<td width = 100px;><a href = "http://borges.metwi.ucla.edu:9695" target="_blank">REMAP</a></td>
+<td width = 100px;><a href = "http://ndn.cs.illinois.edu:9695" target="_blank">UIUC</a></td>
+<td width = 100px;><a href = "http://128.252.153.193:9695" target="_blank">WashU</a></td>
+<td width = 100px;><a href = "http://sppatla1.arl.wustl.edu:9695" target="_blank">SPPATLA1</a></td>
+<td width = 100px;><a href = "http://spphous1.arl.wustl.edu:9695" target="_blank">SPPHOUS1</a></td>
+<td width = 100px;><a href = "http://sppkans1.arl.wustl.edu:9695" target="_blank">SPPKANS1</a></td>
+<td width = 100px;><a href = "http://sppsalt1.arl.wustl.edu:9695" target="_blank">SPPSALT1</a></td>
+<td width = 100px;><a href = "http://sppwash1.arl.wustl.edu:9695" target="_blank">SPPWASH1</a></td>
+</tr>
+<tr><td><a href = "http://hobo.cs.arizona.edu:9695" target="_blank">UA</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://ccnhub.caida.org:9695" target="_blank">UCSD</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://mccoy.netsec.colostate.edu:9695" target="_blank">CSU</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://netlogic.cs.memphis.edu:9695" target="_blank">UM</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://northpole.ece.neu.edu:9695" target="_blank">NEU</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://ndnlx1.parc.xerox.com:9695" target="_blank">PARC</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://162.105.146.26:9695" target="_blank">PKU</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://ndnhub.ics.uci.edu:9695" target="_blank">UCI</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://spurs.cs.ucla.edu:9695" target="_blank">UCLA</a></td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://borges.metwi.ucla.edu:9695" target="_blank">REMAP</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://ndn.cs.illinois.edu:9695" target="_blank">UIUC</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://128.252.153.193:9695" target="_blank">WashU</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://sppatla1.arl.wustl.edu:9695" target="_blank">SPPATLA1</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://spphous1.arl.wustl.edu:9695" target="_blank">SPPHOUS1</a></td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://sppkans1.arl.wustl.edu:9695" target="_blank">SPPKANS1</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://sppsalt1.arl.wustl.edu:9695" target="_blank">SPPSALT1</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+<tr><td><a href = "http://sppwash1.arl.wustl.edu:9695" target="_blank">SPPWASH1</a></td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#FF0000">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#7CFC00">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+<td bgcolor ="#C0C0C0">&nbsp;</td>
+</tr>
+</table>
+<p><br />Additional Links:<br />Unknown link detected: 10.0.3.21:6363 in PARC<br />
+Unknown link detected: 10.0.9.110:9695 in WashU<br />
+Unknown link detected: 10.0.9.102:9695 in WashU<br />
+Unknown link detected: 10.0.9.106:9695 in WashU<br />
+Unknown link detected: 10.0.4.37:43896 in WashU<br />
+</p>
+<p><br />Errors Encountered:<br />Possible Error detected: 10.0.2.42:9695 from: NEU<br />
+Possible Error detected: 10.0.9.58:9695 from: NEU<br />
+Possible Error detected: 10.0.8.42:9695 from: NEU<br />
+</p>
+</div>
+<div><input id="b4" type="button" value="Show Topology" style="width: 250px" onclick="changeTableStatus(this)"/></div>
+<div id="topo" class="hidden">
+<img border="0" src="topology.png" alt = "testbed" width="3500" height="1200"/></div>
+</body>
+</html>
