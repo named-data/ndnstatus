@@ -504,7 +504,7 @@ def fes_html_gen(all_prefix):
 	
 	#html_code += "<br />\n<form action=\"http://cgi.cs.arizona.edu/~yifengl/tbs.cgi\">\n"
 	#html_code += "<input type=\"submit\" value=\"Refresh\"></form>\n<br>\n"
-	table_width = str(180+len(config.node_url)*80)
+	table_width = str(180+len(config.node_url)*70)
 	html_code += "<table border =\"1\"; width=\""+table_width+"px\";>\n<tr><td>&nbsp;</td>\n"
 
 	#Build skeleton for table representation
@@ -762,13 +762,13 @@ def fentry_status_gen():
 	#every valid prefix(prefixes that represent a node in the topology e.g. ndn:/ndn/some_website.edu)
 	all_fentry_prefix = []
 	all_nodes_prefix_lists = []
-	my_output_file = "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/tbs_ndnx.html"
+	my_output_file = "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/tbs_ndnx.html"
 
 	#get and store all xml from ccndstatus webages
-	get_all_xml(config.node_url, "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/xmlfiles/", config.xml_list, 10);
+	get_all_xml(config.node_url, "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/", config.xml_list, 10);
         ## handle UCLA differently
-	#subprocess.call(["cp", "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/xmlfiles/UCLA", "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/xmlfiles/UCLA.html"])
-	#subprocess.call(["/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/processUCLA.sh", "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/xmlfiles/UCLA.html", "/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/xmlfiles/UCLA"])
+	#subprocess.call(["cp", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA.html"])
+	#subprocess.call(["/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/processUCLA.sh", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA.html", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA"])
 	#print(datetime.now())
 	for i in range(0, len(config.node_url)):
 		#everything will be inserted into a hashtable of valid prefixes
@@ -789,7 +789,7 @@ def fentry_status_gen():
 
 def main():
 	#print(datetime.now())
-	setup("/home/research/jdd/Library/HTML/Public/ndnstatus/tmp/config_file_ndnx")
+	setup("/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/config_file_ndnx")
 	fentry_status_gen()
 	#print(datetime.now())
 if __name__=="__main__":main()
