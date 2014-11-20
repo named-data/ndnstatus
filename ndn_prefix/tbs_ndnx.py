@@ -457,8 +457,9 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (August 25, 2014) status: All Testbed nodes are running nfd public release version 0.2.0 <br></font>
 <font size="3" face="arial">Notes on current (October 17, 2014) status: NLSR is now running with validation turned on.<br></font>
-<font size="3" face="arial">Notes on current (November 7, 2014) status: A new node at SystemX (Paris) is being installed.<br></font>
-<font size="3" face="arial">Notes on current (November 7, 2014) status: A new node at BYU (Provo Utah) will be installed soon.<br></font>
+<font size="3" face="arial">Notes on current (November 7, 2014) status: A new node at SystemX (Paris) is up and running.<br></font>
+<font size="3" face="arial">Notes on current (November 7, 2014) status: A new node at BYU (Provo Utah) is up and running.<br></font>
+<font size="3" face="arial">Notes on current (November 18, 2014) status: We continue to experiment with our new status daemons for collecting data for ndnmap.arl.wustl.edu. Banwdith display may be intermittent.<br></font>
 <br>
 
 """
