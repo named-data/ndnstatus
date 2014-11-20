@@ -20,7 +20,9 @@ scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@114.247.
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@insula.gsyc.es:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_urjc.html
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@ndn.cs.unibas.ch:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_basel.html
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@133.9.73.66:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_waseda.html
+scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@systemx-ndn-1.enst.fr:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_systemx.html
+scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@pasta10.cs.byu.edu:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_byu.html
 
-ALL_FILES="diag_wu.html diag_memphis.html diag_michigan.html diag_csu.html diag_ucla.html diag_arizona.html diag_remap.html diag_uiuc.html diag_uci.html diag_caida.html diag_pku.html diag_neu.html diag_tongji.html diag_lip6.html diag_orange1.html diag_bupt.html diag_urjc.html diag_basel.html diag_waseda.html"
+ALL_FILES="diag_wu.html diag_memphis.html diag_michigan.html diag_csu.html diag_ucla.html diag_arizona.html diag_remap.html diag_uiuc.html diag_uci.html diag_caida.html diag_pku.html diag_neu.html diag_tongji.html diag_lip6.html diag_orange1.html diag_bupt.html diag_urjc.html diag_basel.html diag_waseda.html diag_systemx.html diag_byu.html"
 cd /home/research/jdd/.www-docs/ndnstatus/ndn_diag/
 cat diag_header.html $ALL_FILES diag_trailer.html > diag.html
