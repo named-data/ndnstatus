@@ -20,6 +20,7 @@ n(http://insula.gsyc.es:80/?f=xml, es/urjc, URJC)
 n(http://ndn.cs.unibas.ch:80/?f=xml, ch/unibas, BASEL)
 n(http://133.9.73.66:80/?f=xml, jp/waseda, WASEDA)
 n(http://pasta10.cs.byu.edu:80/?f=xml, edu/byu, BYU)
+n(http://210.114.89.49:80/?f=xml, kr/anyang, ANYANG)
 
 # Prefixes we want to monitor and show status for on our status page
 p(ndn:/ndn/edu/colostate)
@@ -43,6 +44,7 @@ p(ndn:/ndn/es/urjc)
 p(ndn:/ndn/ch/unibas)
 p(ndn:/ndn/jp/waseda)
 p(ndn:/ndn/edu/byu)
+p(ndn:/ndn/kr/anyang)
 #
 # 
 # Invalid Prefixes: Ones we don't want to show in on our status page
