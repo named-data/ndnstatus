@@ -152,7 +152,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.kr)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -168,7 +168,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(jp)|(fr)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(kr)|(jp)|(fr)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -179,7 +179,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(jp)|(fr)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(kr)|(jp)|(fr)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
