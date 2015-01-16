@@ -498,6 +498,7 @@ def fes_html_gen(all_prefix):
 	#html_code += "<br />"
 	html_code += "<br />"
 	html_code += "<body><font size=\"4\" face=\"arial\">NDN Testbed Snapshot:"+out+"</font>"
+	html_code += "<br />(Status updates every 5 minutes)<br />"
 	html_code += "<br />(Only the main site prefixes are shown)<br />"
 	html_code += gen_prefix_status_description()
 	
