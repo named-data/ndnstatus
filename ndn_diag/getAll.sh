@@ -1,5 +1,5 @@
 #!/bin/bash
-SSH_AUTH_SOCK=/tmp/ssh-UgCEh15859/agent.15859; export SSH_AUTH_SOCK;
+SSH_AUTH_SOCK=/tmp/ssh-KvagC31785/agent.31785; export SSH_AUTH_SOCK;
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@wundngw.arl.wustl.edu:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_wu.html
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@titan.cs.memphis.edu:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_memphis.html
 scp -o "StrictHostKeyChecking no" -i ~/.ssh/all_planetlab_id_rsa ndnops@ndn0.eecs.umich.edu:/home/ndnops/ndn-ops/NOC/bin/ndnops_diag.log /home/research/jdd/.www-docs/ndnstatus/ndn_diag/diag_michigan.html
