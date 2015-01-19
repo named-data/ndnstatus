@@ -456,7 +456,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (November 18, 2014) status: We continue to experiment with our new status daemons for collecting data for ndnmap.arl.wustl.edu. Banwdith display may be intermittent.<br></font>
-<font size="3" face="arial">Notes on current (January 14, 2015) status: Node at Basel is back up.<br></font>
+<font size="3" face="arial">Notes on current (January 19, 2015) status: All nodes have been updated with latest version of nfd.<br></font>
 
 <br>
 
