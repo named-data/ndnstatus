@@ -22,6 +22,7 @@ n(http://133.9.73.66:80/?f=xml, jp/waseda, WASEDA)
 n(http://pasta10.cs.byu.edu:80/?f=xml, edu/byu, BYU)
 n(http://210.114.89.49:80/?f=xml, kr/anyang, ANYANG)
 n(http://ndnnode.math.unipd.it:80/?f=xml, it/unipd, PADUA)
+n(http://129.241.208.115:80/?f=xml, no/ntnu, NTNU)
 
 # Prefixes we want to monitor and show status for on our status page
 p(ndn:/ndn/edu/colostate)
@@ -47,6 +48,7 @@ p(ndn:/ndn/jp/waseda)
 p(ndn:/ndn/edu/byu)
 p(ndn:/ndn/kr/anyang)
 p(ndn:/ndn/it/unipd)
+p(ndn:/ndn/no/ntnu)
 #
 # 
 # Invalid Prefixes: Ones we don't want to show in on our status page
