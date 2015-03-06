@@ -461,6 +461,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (February 13, 2015) status: All nodes are now running nfd version 0.3.0 .<br></font>
 <font size="3" face="arial">Notes on current (February 17, 2015) status: All nodes have been updated with new default strategy config.<br></font>
 <font size="3" face="arial">Notes on current (March 3, 2015) status: New diagram of the Testbed topology below.<br></font>
+<font size="3" face="arial">Notes on current (March 5, 2015) status: All nodes being upgraded to nfd 0.3.1. Some configuration file changes needed, some up and down today....<br></font>
 
 <br>
 
