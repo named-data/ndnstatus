@@ -152,7 +152,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.kr)|(\.it)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.no)|(\.kr)|(\.it)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -168,7 +168,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(kr)|(it)|(jp)|(fr)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -179,7 +179,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(kr)|(it)|(jp)|(fr)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -456,12 +456,11 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (November 18, 2014) status: We continue to experiment with our new status daemons for collecting data for ndnmap.arl.wustl.edu. Bandwidth display may be intermittent.<br></font>
-<font size="3" face="arial">Notes on current (February 2, 2015) status: New node at University of Padua, Italy is installed.<br></font>
 <font size="3" face="arial">Notes on current (February 2, 2015) status: We continue to investigate poor network performance at the Tongji Node.<br></font>
-<font size="3" face="arial">Notes on current (February 13, 2015) status: All nodes are now running nfd version 0.3.0 .<br></font>
 <font size="3" face="arial">Notes on current (February 17, 2015) status: All nodes have been updated with new default strategy config.<br></font>
 <font size="3" face="arial">Notes on current (March 3, 2015) status: New diagram of the Testbed topology below.<br></font>
-<font size="3" face="arial">Notes on current (March 5, 2015) status: All nodes being upgraded to nfd 0.3.1. Some configuration file changes needed, some up and down today....<br></font>
+<font size="3" face="arial">Notes on current (March 9, 2015) status: All nodes are now running nfd version 0.3.1.<br></font>
+<font size="3" face="arial">Notes on current (March 9, 2015) status: New node at Norwegian University of Science and Technology (NTNU) is installed.<br></font>
 
 <br>
 
