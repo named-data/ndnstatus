@@ -1,24 +1,24 @@
 #!/bin/bash
 
 
-if [ $# -ne 1 ]
-then
-  echo "Usage: $0 <logfile name>"
-  echo " e.g.: $0 ndnping.log.export"
-  exit 0
-else
-  LOGFILE=$1
-fi
-NODENAME=`grep "Node:" $LOGFILE | cut -d':' -f 2`
+#ALL_FILES="ping_wu.raw ping_memphis.raw ping_michigan.raw ping_csu.raw ping_ucla.raw ping_arizona.raw ping_remap.raw ping_uiuc.raw ping_uci.raw ping_caida.raw ping_pku.raw ping_neu.raw ping_tongji.raw ping_lip6.raw ping_orange1.raw ping_bupt.raw ping_urjc.raw ping_basel.raw ping_waseda.raw"
+ALL_FILES="ping_wu.raw ping_remap.raw "
+TEST_FILE="ping_wu.raw"
 
-PREFIXES=(`grep "Ping Statistics For " $LOGFILE | cut -d' ' -f 6`)
+cd /home/research/jdd/.www-docs/ndnstatus/ndn_ping/
 
-PACKET_LOSS=(`grep "Packet Loss" $LOGFILE | cut -d',' -f 3 | cut -d'=' -f 2 | cut -d'%' -f 1`)
+#cat ping_header.html $ALL_FILES ping_trailer.html > ping.html
 
-MIN=(`grep "Min" $LOGFILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 1`)
-MAX=(`grep "Min" $LOGFILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 2`)
-AVG=(`grep "Min" $LOGFILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 3`)
-MDEV=(`grep "Min" $LOGFILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 4`)
+NODENAME=`grep "Node:" $TEST_FILE | cut -d':' -f 2`
+
+PREFIXES=(`grep "Ping Statistics For " $TEST_FILE | cut -d' ' -f 6`)
+
+PACKET_LOSS=(`grep "Packet Loss" $TEST_FILE | cut -d',' -f 3 | cut -d'=' -f 2 | cut -d'%' -f 1`)
+
+MIN=(`grep "Min" $TEST_FILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 1`)
+MAX=(`grep "Min" $TEST_FILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 2`)
+AVG=(`grep "Min" $TEST_FILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 3`)
+MDEV=(`grep "Min" $TEST_FILE | cut -d'(' -f 3 | cut -d')' -f 1 | cut -d'/' -f 4`)
 
 echo "NODENAME $NODENAME"
 #echo "PREFIXES: $PREFIXES"
