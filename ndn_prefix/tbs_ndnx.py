@@ -38,10 +38,15 @@ def setup(filename):
 		#note some domains are not actual domains, since many nodes have the
 		#same domains. 
 		if(line[0] == "n"):
+                        # n(http://hobo.cs.arizona.edu:80/?f=xml, edu/arizona, ARIZONA, ndn:/ndn/edu/arizona)
 			#split elements separated by a comma + space after removing .( and )\n
 			node_tuple = line[2:-2].split(", ")
 			#place the elements in a tuple and insert into (local) node_list
 			node_list.append((node_tuple[0], node_tuple[1], node_tuple[2]))
+                        #print "node_tuple[3]: ", node_tuple[3]
+			config.names[node_tuple[3]] = "ndn:/"+node_tuple[3][9:]
+			config.valid_prefix[node_tuple[3]] = get_domain(node_tuple[3])
+
 		#for adding new planned topology links. 
 		#format: l(node1 name, node1 ip, node2 name, node2 ip)
 		#e.g. l(UA, 10.0.1.29:9695, UCSD, 10.0.1.30:9695) represent
@@ -71,17 +76,7 @@ def setup(filename):
 		#but if it blocks some useful prefixes, use this to explicitly add it.
 		elif(line[0] == "p"):
 			name_tuple = line[2:-2].split(", ")
-                        #print "p name_tuple: " + name_tuple[0]
-			#p(ndn:/ndn/prefix)
-			#config.names.append((name_tuple[0], "ndn:/"+name_tuple[0][10:]))
-			#each node can advertise 2 kinds of prefixes, ndn:/ndn/prefix, or ndn:/prefix
-			#key is ndn:/ndn/prefix, value is ndn:/prefix
-			#this is a list of prefixes that should always be present in the table for
-			#debugging purposes
 			config.names[name_tuple[0]] = "ndn:/"+name_tuple[0][9:]
-                        #print "config.names[name_tuple[0]: " + config.names[name_tuple[0]]
-                        #print "name_tuple[0]: " + name_tuple[0]
-                        #print "adding to confi.valid_prefix[] get_domain(name_tuple[0]): " + get_domain(name_tuple[0])
 			config.valid_prefix[name_tuple[0]] = get_domain(name_tuple[0])
 			
 		#invalid prefix, must be exact match
