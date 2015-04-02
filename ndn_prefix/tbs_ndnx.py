@@ -456,6 +456,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (March 3, 2015) status: New diagram of the Testbed topology below.<br></font>
 <font size="3" face="arial">Notes on current (March 9, 2015) status: All nodes are now running nfd version 0.3.1.<br></font>
 <font size="3" face="arial">Notes on current (March 9, 2015) status: New node at Norwegian University of Science and Technology (NTNU) is installed.<br></font>
+<font size="3" face="arial">Notes on current (April 2, 2015) status: New node at Verisign is being installed.<br></font>
 
 <br>
 
