@@ -111,6 +111,13 @@ def NDN_graph():
         else:
           if x > -10 and x < 20:
             x = x -50
+        if node == "TONGJI":
+          y = y -0.5
+        if node == "WASEDA":
+          x = x +2
+        if node == "KISTI":
+          x = x +2
+          y = y -2
         if node == "LIP6":
           x = x -10
         if node == "ORANGE":
