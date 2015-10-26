@@ -450,18 +450,17 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (November 18, 2014) status: We continue to experiment with our new status daemons for collecting data for ndnmap.arl.wustl.edu. Bandwidth display may be intermittent.<br></font>
-<font size="3" face="arial">Notes on current (February 2, 2015) status: We continue to investigate poor network performance at the Tongji Node.<br></font>
-<font size="3" face="arial">Notes on current (February 17, 2015) status: All nodes have been updated with new default strategy config.<br></font>
 <font size="3" face="arial">Notes on current (March 3, 2015) status: New diagram of the Testbed topology below.<br></font>
-<font size="3" face="arial">Notes on current (March 9, 2015) status: All nodes are now running nfd version 0.3.1.<br></font>
-<font size="3" face="arial">Notes on current (March 9, 2015) status: New node at Norwegian University of Science and Technology (NTNU) is installed.<br></font>
-<font size="3" face="arial">Notes on current (April 2, 2015) status: New node at Verisign is being installed.<br></font>
+<font size="3" face="arial">Notes on current (September 1, 2015) status: nfd 0.3.4 is now running on all nodes. ndn-tools will follow shortly.<br></font>
+<font size="3" face="arial">Notes on current (September 1, 2015) status: ndnpingserver will return when ndn-tools gets installed.<br></font>
+<font size="3" face="arial">Notes on current (September 28, 2015) status: PKU is having hardware disk problems and will not be available for a while.<br></font>
 
 <br>
 
 """
 	return tbd
+
+#<font size="3" face="arial">Notes on current (October 2, 2015) status: Our status server is getting truncated responses from BUPT. The node is up but the because of the errors the status page reports it as down.<br></font>
 
 #generates html to display forwarding entry status
 #list of unique prefix, list of lists, each list represents list of prefixes for a node
@@ -478,11 +477,11 @@ def fes_html_gen(all_prefix):
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
-	p =subprocess.Popen(["date","+%Y/%m/%d %H:%M:%S"], stdout=subprocess.PIPE)
+	p =subprocess.Popen(["date","+%Y/%m/%d %H:%M:%S %Z"], stdout=subprocess.PIPE)
 	out, err = p.communicate()
 	#remove [2:-3] here and in ns.py for python, don't remove for python3
 	#out = str(out)[2:-3] + " (CST)"
-	out = str(out) + " (CST)"
+	#out = str(out) + " (CST)"
 	#generate description and beginning of the table
 	html_code = gen_html_start()
         html_code += "<body><font size=\"4\" face=\"arial\">Other NDN status pages:</font>\n"

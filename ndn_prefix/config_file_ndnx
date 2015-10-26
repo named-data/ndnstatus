@@ -22,8 +22,9 @@ n(http://133.9.73.66:80/?f=xml, jp/waseda, WASEDA, ndn:/ndn/jp/waseda)
 n(http://pasta10.cs.byu.edu:80/?f=xml, edu/byu, BYU, ndn:/ndn/edu/byu)
 n(http://210.114.89.49:80/?f=xml, kr/anyang, ANYANG, ndn:/ndn/kr/anyang)
 n(http://ndnnode.math.unipd.it:80/?f=xml, it/unipd, PADUA, ndn:/ndn/it/unipd)
-n(http://129.241.208.115:80/?f=xml, no/ntnu, NTNU, ndn:/ndn/no/ntnu)
+n(http://129.241.209.52:80/?f=xml, no/ntnu, NTNU, ndn:/ndn/no/ntnu)
 n(http://labs-ndn3.verisignlabs.com:80/?f=xml, com/verisign, VERISIGN, ndn:/ndn/com/verisign)
+n(http://203.253.235.168:80/?f=xml, kr/re/kisti, KISTI, ndn:/ndn/kr/re/kisti)
 
 # Prefixes we want to monitor and show status for on our status page
 #
