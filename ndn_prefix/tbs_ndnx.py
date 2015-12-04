@@ -147,7 +147,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.no)|(\.kr)|(\.it)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -163,7 +163,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(pt)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -174,7 +174,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -454,6 +454,8 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (September 1, 2015) status: nfd 0.3.4 is now running on all nodes. ndn-tools will follow shortly.<br></font>
 <font size="3" face="arial">Notes on current (September 1, 2015) status: ndnpingserver will return when ndn-tools gets installed.<br></font>
 <font size="3" face="arial">Notes on current (September 28, 2015) status: PKU is having hardware disk problems and will not be available for a while.<br></font>
+<font size="3" face="arial">Notes on current (October 27, 2015) status: nfd 0.4.0 beta2 is being pushed out to the Testbed.<br></font>
+<font size="3" face="arial">Notes on current (October 29, 2015) status: ndnmap data collectors are broken with new nfd 0.4.0 beta2 install. Should be back up later today.<br></font>
 
 <br>
 

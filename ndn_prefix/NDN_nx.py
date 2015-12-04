@@ -112,7 +112,8 @@ def NDN_graph():
           if x > -10 and x < 20:
             x = x -50
         if node == "TONGJI":
-          y = y -0.5
+          y = y + 0.25
+          x = x + 2
         if node == "WASEDA":
           x = x +2
         if node == "KISTI":
@@ -139,6 +140,13 @@ def NDN_graph():
         if node == "NTNU":
           y = y - 12
           x = x - 6
+        if node == "COPELABS":
+          y = y - 0.5
+          x = x + 4
+        if node == "UINDONESIA":
+          y = y + 36.7
+          x = x + 23
+
         #if node == "PKU":
         #  x = x -3
         G.add_node(node)

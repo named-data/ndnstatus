@@ -25,6 +25,8 @@ n(http://ndnnode.math.unipd.it:80/?f=xml, it/unipd, PADUA, ndn:/ndn/it/unipd)
 n(http://129.241.209.52:80/?f=xml, no/ntnu, NTNU, ndn:/ndn/no/ntnu)
 n(http://labs-ndn3.verisignlabs.com:80/?f=xml, com/verisign, VERISIGN, ndn:/ndn/com/verisign)
 n(http://203.253.235.168:80/?f=xml, kr/re/kisti, KISTI, ndn:/ndn/kr/re/kisti)
+n(http://193.137.75.171:80/?f=xml, pt/ulusofona/copelabs, COPELABS, ndn:/ndn/pt/ulusofona/copelabs)
+n(http://152.118.148.103:80/?f=xml, id/uindonesia, UINDONESIA, ndn:/ndn/id/uindonesia)
 
 # Prefixes we want to monitor and show status for on our status page
 #
