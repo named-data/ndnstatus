@@ -147,7 +147,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.jp)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.jp)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -163,7 +163,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(jp)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(jp)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -174,7 +174,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(jp)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(jp)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -201,8 +201,8 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 		#wget try once, time out after 5 seconds, quite(no output), background, specify output file
 		#use n(xml_link, domain, name abbr)'s name abbr as temp file name.
 		temp_filename = node_tuple[2]
-		p = subprocess.Popen(["wget","-t 2","-T 5","-q","-b","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
-                print "wget -t 2 -T 5 -q -b -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
+		p = subprocess.Popen(["wget","--no-check-certificate", "-t 2","-T 5","-q","-b","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
+                print "wget --no-check-certificate -t 2 -T 5 -q -b -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
 	#wait for wait seconds for xml to come back
 	time.sleep(10)
 	for node_tuple in source_url:
@@ -452,6 +452,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (January 8, 2016) status: nfd 0.4.0 and NLSR 0.2.2 have been installed.<br></font>
 <font size="3" face="arial">Notes on current (February 11, 2016) status: The PKU node is not going to be repaired and has been removed from the Testbed.<br></font>
+<font size="3" face="arial">Notes on current (March 17, 2016) status: Several node prefixes have been updated to conform better to domain names.<br></font>
 
 <br>
 

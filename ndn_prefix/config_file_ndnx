@@ -26,12 +26,12 @@ n(http://129.241.209.52:80/?f=xml, no/ntnu, NTNU, ndn:/ndn/no/ntnu)
 n(http://labs-ndn3.verisignlabs.com:80/?f=xml, com/verisign, VERISIGN, ndn:/ndn/com/verisign)
 n(http://203.253.235.168:80/?f=xml, kr/re/kisti, KISTI, ndn:/ndn/kr/re/kisti)
 n(http://193.137.75.171:80/?f=xml, pt/ulusofona/copelabs, COPELABS, ndn:/ndn/pt/ulusofona/copelabs)
-n(http://152.118.148.103:80/?f=xml, id/uindonesia, UINDONESIA, ndn:/ndn/id/uindonesia)
-n(http://134.76.249.235:80/?f=xml, de/goettingen, GOETTINGEN, ndn:/ndn/de/goettingen)
-n(http://133.1.17.51:80/?f=xml, jp/osaka, OSAKA, ndn:/ndn/jp/osaka)
-n(http://193.136.9.206:80/?f=xml, pt/minho, MINHO, ndn:/ndn/pt/minho)
+n(http://152.118.148.103:80/?f=xml, id/ac/ui, UINDONESIA, ndn:/ndn/id/ac/ui)
+n(http://134.76.249.235:80/?f=xml, de/uni-goettingen, GOETTINGEN, ndn:/ndn/de/uni-goettingen)
+n(http://133.1.17.51:80/?f=xml, jp/ac/osaka-u, OSAKA, ndn:/ndn/jp/ac/osaka-u)
+n(http://193.136.9.206:80/?f=xml, pt/uminho, MINHO, ndn:/ndn/pt/uminho)
 #n(http://129.6.112.5:80/?f=xml, gov/nist, NIST, ndn:/ndn/gov/nist)
-n(https://ndn-01.antd.nist.gov/ndn/?f=xml, gov/nist, NIST, ndn:/ndn/gov/nist)
+n(https://ndn-01.antd.nist.gov/?f=xml, gov/nist, NIST, ndn:/ndn/gov/nist)
 
 # Prefixes we want to monitor and show status for on our status page
 #
