@@ -143,9 +143,21 @@ def NDN_graph():
         if node == "COPELABS":
           y = y - 0.5
           x = x + 4
-        if node == "UINDONESIA":
+        if node == "UI":
           y = y + 36.7
           x = x + 23
+        if node == "GOETTINGEN":
+          y = y -2
+          x = x + 8
+        if node == "OSAKA":
+          y = y - 1
+          x = x + 7
+        if node == "MINHO":
+          y = y - 0.5
+          x = x - 3
+        if node == "NIST":
+          x = x + 8
+          y = y - 0.25
 
         #if node == "PKU":
         #  x = x -3

@@ -147,7 +147,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.fr)|(\.jp)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.jp)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -163,7 +163,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(pt)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(jp)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -174,7 +174,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(jp)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(jp)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -450,12 +450,8 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (March 3, 2015) status: New diagram of the Testbed topology below.<br></font>
-<font size="3" face="arial">Notes on current (September 1, 2015) status: nfd 0.3.4 is now running on all nodes. ndn-tools will follow shortly.<br></font>
-<font size="3" face="arial">Notes on current (September 1, 2015) status: ndnpingserver will return when ndn-tools gets installed.<br></font>
-<font size="3" face="arial">Notes on current (September 28, 2015) status: PKU is having hardware disk problems and will not be available for a while.<br></font>
-<font size="3" face="arial">Notes on current (October 27, 2015) status: nfd 0.4.0 beta2 is being pushed out to the Testbed.<br></font>
-<font size="3" face="arial">Notes on current (October 29, 2015) status: ndnmap data collectors are broken with new nfd 0.4.0 beta2 install. Should be back up later today.<br></font>
+<font size="3" face="arial">Notes on current (January 8, 2016) status: nfd 0.4.0 and NLSR 0.2.2 have been installed.<br></font>
+<font size="3" face="arial">Notes on current (February 11, 2016) status: The PKU node is not going to be repaired and has been removed from the Testbed.<br></font>
 
 <br>
 
