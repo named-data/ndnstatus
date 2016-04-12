@@ -113,7 +113,7 @@ def NDN_graph():
           x = x - 1
           y = y + 2
         if node == "WU":
-          x = x - 2
+          x = x - 6
           y = y - 3
         if node == "UM":
           x = x + 7
@@ -161,7 +161,7 @@ def NDN_graph():
           y = y - 7
           x = x + 17
         if node == "ORANGE":
-          y = y - 1
+          y = y + 1
           x = x - 23
         if node == "SYSTEMX":
           y = y + 6
