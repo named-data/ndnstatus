@@ -147,7 +147,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.jp)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.jp)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -163,7 +163,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(jp)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(jp)|(th)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -174,7 +174,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(jp)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(jp)|(th)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -716,7 +716,8 @@ def fes_html_gen(all_prefix):
 	#html_code += "\n<div id=\"topo\" class=\"hidden\">\n"
 	html_code += "<br />"
 	html_code += "<br />"
-	html_code += "<img border=\"0\" src=\"topology.png\" alt = \"testbed\" width=\"1600\" height=\"800\"/></div>\n"
+	#html_code += "<img border=\"0\" src=\"topology.png\" alt = \"testbed\" width=\"1600\" height=\"800\"/></div>\n"
+	html_code += "<img border=\"0\" src=\"topology.png\" alt = \"testbed\" width=\"2400\" height=\"1200\"/></div>\n"
 	html_code += "</body>\n</html>\n"
 	return html_code
 

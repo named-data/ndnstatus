@@ -105,67 +105,106 @@ def NDN_graph():
 
     for n,(y,x) in nodes_with_positions.iteritems():
         node = n
-        # Adjust x position
-        if x > 100:
-          x = x - 140
-        else:
-          if x > -10 and x < 20:
-            x = x -50
-        if node == "TONGJI":
-          y = y + 0.25
-          x = x + 2
-        if node == "WASEDA":
-          x = x +2
-        if node == "KISTI":
-          x = x +2
-          y = y -2
-        if node == "LIP6":
-          x = x -10
-        if node == "ORANGE":
-          y = y -1
-        if node == "UA":
-          y = y +0.5
-        if node == "CAIDA":
-          x = x -5
-        if node == "UCLA":
-          y = y +1
-          x = x -1
-        if node == "REMAP":
-          y = y +1
-          x = x +1
-        if node == "UCI":
-          x = x -1
-        #if node == "VERISIGN":
-        #  y = y -1
-        if node == "NTNU":
-          y = y - 12
-          x = x - 6
-        if node == "COPELABS":
-          y = y - 0.5
-          x = x + 4
-        if node == "UI":
-          y = y + 36.7
-          x = x + 23
-        if node == "GOETTINGEN":
-          y = y -2
-          x = x + 8
-        if node == "OSAKA":
-          y = y - 1
+        # USA
+        if node == "NEU":
+          x = x + 10
+          y = y + 20
+        if node == "UIUC":
+          x = x - 1
+          y = y + 2
+        if node == "WU":
+          x = x - 2
+          y = y - 3
+        if node == "UM":
           x = x + 7
-        if node == "MINHO":
-          y = y - 0.5
-          x = x - 3
+          y = y - 8
+        if node == "MICH":
+          x = x 
+          y = y + 12
         if node == "NIST":
-          x = x + 8
-          y = y - 0.25
-        if node == "SRRU":
-          y = y + 15
+          x = x + 13
+          y = y + 11
+        if node == "UA":
+          y = y - 10
+        if node == "CAIDA":
+          x = x - 20
+          y = y - 20
+        if node == "BYU":
+          y = y + 20
+          x = x - 5
+        if node == "CSU":
+          y = y + 10
+          x = x 
+        if node == "UCLA":
+          y = y + 10
+          x = x -20
+        if node == "REMAP":
+          y = y + 3
+          x = x -2
+        if node == "UCI":
+          x = x - 6
+          y = y - 6
+        # EUROPE
+        if node == "LIP6":
+          x = x + 9
+          y = y + 2
+        if node == "NTNU":
+          y = y 
+          x = x 
+        if node == "COPELABS":
+          y = y - 25
+          x = x 
+        if node == "URJC":
+          y = y
+          x = x - 10
+        if node == "BASEL":
+          y = y - 7
+          x = x + 17
+        if node == "ORANGE":
+          y = y - 1
+          x = x - 23
+        if node == "SYSTEMX":
+          y = y + 6
+          x = x - 12
+        if node == "GOETTINGEN":
+          y = y + 2
+          x = x + 25
+        if node == "PADUA":
+          y = y -20 
+          x = x + 20
+        if node == "MINHO":
+          y = y -15 
+          x = x -10
+        # SOUTH AMERICA
         if node == "UFPA":
-          y = y + 36.5
-          x = x - 3
+          y = y 
+          x = x 
+        # ASIA
+        if node == "UI":
+          y = y 
+          x = x 
+        if node == "OSAKA":
+          y = y -10
+          x = x +9
+        if node == "ANYANG":
+          y = y +17
+          x = x +4
+        if node == "TONGJI":
+          y = y -5
+          x = x -6
+        if node == "WASEDA":
+          x = x + 6
+          y = y +5
+        if node == "KISTI":
+          x = x-1
+          y = y
+        if node == "BUPT":
+          y = y + 20
+          x = x - 16
+        if node == "SRRU":
+          y = y - 5
+          x = x - 21
 
-        #if node == "PKU":
-        #  x = x -3
         G.add_node(node)
         G.position[node] = (x,y)
         #print "Adding node: >", node, "< with position: ", x, ",", y
@@ -205,11 +244,14 @@ if __name__ == '__main__':
         nx.draw_networkx_edge_labels(G,G.position, edge_labels=G.edge_labels)
 
         # scale the axes 
-        plt.xlim(-130,5)
-        #plt.ylim(-90,90)
-        plt.ylim(30,53)
 
-        plt.savefig("topology.png")
+        # plt.xlim(-130,5)
+        # plt.ylim(30,53)
+
+        plt.xlim(-150,150)
+        plt.ylim(-10,70)
+
+        plt.savefig("full.png")
     except:
         print "exception: ", sys.exc_info()[0]
       
