@@ -147,7 +147,7 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.jp)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -163,7 +163,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(jp)|(th)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(uk))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -174,7 +174,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(jp)|(th)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((\edu)|(\org)|(\com)|(\cn)|(es)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(jp)|(nl)|(th)|(gov)|(fr)|(\pt)|(\uk)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -450,9 +450,10 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (January 8, 2016) status: nfd 0.4.0 and NLSR 0.2.2 have been installed.<br></font>
-<font size="3" face="arial">Notes on current (February 11, 2016) status: The PKU node is not going to be repaired and has been removed from the Testbed.<br></font>
-<font size="3" face="arial">Notes on current (March 17, 2016) status: Several node prefixes have been updated to conform better to domain names.<br></font>
+<font size="3" face="arial">Notes on current (July 29, 2016) status: TONGJI node may appear down when it is actually up. We are having problems getting full status reports from it.<br></font>
+<font size="3" face="arial">Notes on current (August 2, 2016) status: We are finishing up the upgrade of nodes to Ubuntu 14.04.<br></font>
+<font size="3" face="arial">Notes on current (August 2, 2016) status: NLSR is being upgraded to 0.3.0.<br></font>
+<font size="3" face="arial">Notes on current (August 2, 2016) status: New node being added in Netherlands: TNO <br></font>
 
 <br>
 
@@ -526,6 +527,7 @@ def fes_html_gen(all_prefix):
 		if(node_list[i].get_stat() == "ONLINE"):
 			table_skeleton[0].append(1) #online
 		else:
+                        print "Marking a node as OFFLINE" 
 			table_skeleton[0].append(0) #offline
 			offline_nodes.append(i)
 
