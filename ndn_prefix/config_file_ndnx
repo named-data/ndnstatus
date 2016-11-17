@@ -2,9 +2,8 @@
 n(http://hobo.cs.arizona.edu:80/?f=xml, edu/arizona, ARIZONA, ndn:/ndn/edu/arizona)
 n(http://ndn.netsec.colostate.edu:80/?f=xml, edu/colostate, CSU, ndn:/ndn/edu/colostate)
 n(http://titan.cs.memphis.edu:80/?f=xml, edu/memphis, MEMPHIS, ndn:/ndn/edu/memphis)
-n(http://ndn0.eecs.umich.edu:80/?f=xml, edu/umich, MICHIGAN, ndn:/ndn/edu/umich)
-#n(http://162.105.146.26:80/?f=xml, cn/edu/pku, PKU, ndn:/ndn/cn/edu/pku)
-n(http://114.247.165.44:80/?f=xml, cn/edu/bupt, BUPT, ndn:/ndn/cn/edu/bupt)
+n(http://198.111.224.197:80/?f=xml, edu/umich, MICHIGAN, ndn:/ndn/edu/umich)
+n(http://114.247.165.44:8080/?f=xml, cn/edu/bupt, BUPT, ndn:/ndn/cn/edu/bupt)
 n(http://128.97.98.7:80/?f=xml, edu/ucla/remap, REMAP, ndn:/ndn/edu/ucla/remap)
 n(http://spurs.cs.ucla.edu:80/?f=xml, edu/ucla, UCLA, ndn:/ndn/edu/ucla)
 n(http://click.caida.org:80/?f=xml, org/caida, CAIDA, ndn:/ndn/org/caida)
@@ -23,21 +22,13 @@ n(http://pasta10.cs.byu.edu:80/?f=xml, edu/byu, BYU, ndn:/ndn/edu/byu)
 n(http://210.114.89.49:80/?f=xml, kr/anyang, ANYANG, ndn:/ndn/kr/anyang)
 n(http://ndnnode.math.unipd.it:80/?f=xml, it/unipd, PADUA, ndn:/ndn/it/unipd)
 n(http://129.241.209.52:80/?f=xml, no/ntnu, NTNU, ndn:/ndn/no/ntnu)
-#n(http://labs-ndn3.verisignlabs.com:80/?f=xml, com/verisign, VERISIGN, ndn:/ndn/com/verisign)
 n(http://203.253.235.168:80/?f=xml, kr/re/kisti, KISTI, ndn:/ndn/kr/re/kisti)
 n(http://193.137.75.171:80/?f=xml, pt/ulusofona/copelabs, COPELABS, ndn:/ndn/pt/ulusofona/copelabs)
 n(http://152.118.148.103:80/?f=xml, id/ac/ui, UINDONESIA, ndn:/ndn/id/ac/ui)
 n(http://134.76.249.235:80/?f=xml, de/uni-goettingen, GOETTINGEN, ndn:/ndn/de/uni-goettingen)
 n(http://133.1.17.51:80/?f=xml, jp/ac/osaka-u, OSAKA, ndn:/ndn/jp/ac/osaka-u)
 n(http://193.136.9.206:80/?f=xml, pt/uminho, MINHO, ndn:/ndn/pt/uminho)
-#n(http://129.6.112.5:80/?f=xml, gov/nist, NIST, ndn:/ndn/gov/nist)
 n(https://ndn-01.antd.nist.gov/?f=xml, gov/nist, NIST, ndn:/ndn/gov/nist)
 n(http://comsci2.srru.ac.th:80/?f=xml, th/ac/srru, SRRU, ndn:/ndn/th/ac/srru)
 n(http://200.239.93.10:80/?f=xml, br/ufpa, UFPA, ndn:/ndn/br/ufpa)
 n(http://134.221.116.42:80/?f=xml, nl/tno, TNO, ndn:/ndn/nl/tno)
-
-# Prefixes we want to monitor and show status for on our status page
-#
-# 
-# Invalid Prefixes: Ones we don't want to show in on our status page
-#i(ccnx:/ndn/memphis.edu/netlab)

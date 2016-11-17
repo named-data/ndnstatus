@@ -64,13 +64,13 @@ def get_node_info(xml_string, uni_name):
 	#if nothing is in out, then return
 	
 	if(len(xml_string) == 0):
-                #print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
+                print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
 		return Nentry(uni_name, "", "",  machine_time, "", "OFFLINE")
 	try:
 		xml = parseString(xml_string)
 	except Exception as e:
-                #print "get_node_info() marking " + uni_name + " OFFLINE because of exception"
-                #print "  xml_string: " + xml_string
+                print "get_node_info() marking " + uni_name + " OFFLINE because of exception"
+                print "  xml_string: " + xml_string
 		return Nentry(uni_name, "", "",  machine_time, "", "OFFLINE")
 
         #print "found " + uni_name

@@ -13,7 +13,7 @@ def process_nodes():
   shortNametWords = {}
   positionWords = {}
 
-  #print "process_nodes():"
+  print "process_nodes():"
   f = open('geocode.json','r')
 
   foundShortName = False
@@ -23,15 +23,18 @@ def process_nodes():
 
   #print "line: ", line
   while line != '' :
+    print "process_nodes(): top of while"
     words = line.split()
-    #print "words[0]: ", words[0]
+    print "words[0]: ", words[0]
+    print "process_nodes(): checking shortname"
     if words[0] == "\"shortname\":":
       #words = line.split(':')
       #print "found line with shortname"
       shortNameWords = words[1].split(',')
       foundShortName = True
       shortName = shortNameWords[0][1:len(shortNameWords[0])-1]
-      #print "shortName: ", shortName
+      print "shortName: ", shortName
+    print "process_nodes(): checking position"
     if words[0] == "\"position\":":
       indexLB = line.find("[")
       indexRB = line.find("]")
@@ -41,15 +44,17 @@ def process_nodes():
       #print "line[COMMA+1,RB]: ", line[indexCOMMA+1:indexRB]
       x = float(line[indexLB+1:indexCOMMA])
       y = float(line[indexCOMMA+1:indexRB])
-      #print "x,y", x, ", ", y
+      print "x,y", x, ", ", y
       foundPosition = True
+    print "process_nodes(): checking founds"
     if foundShortName == True and foundPosition == True :
       nodes_with_positions[shortName] = (x,y)
-      #print "processed node: ", shortName, "with position: x: ", x, "y: ", y
+      print "processed node: ", shortName, "with position: x: ", x, "y: ", y
       foundShortName = False
       foundPosition = False
     line = f.readline()
-    #print "line: ", line
+    print "line: >", line, "<"
+  print "end process_nodes():"
 
 def process_edges():
   startWords = {}
@@ -68,12 +73,12 @@ def process_edges():
     words = line.split()
     if words[0] == "\"start\":":
       startWords = words[1].split(',')
-      #print "found Start", startWords[0]
+      print "found Start", startWords[0]
       foundStart = True
       startName = startWords[0][1:len(startWords[0])-1]
     if words[0] == "\"end\":":
       endWords = words[1].split(',')
-      #print "found End", endWords[0]
+      print "found End", endWords[0]
       foundEnd = True
       endName = endWords[0][1:len(endWords[0])-1]
     if words[0] == "\"nlsr_weight\":":
@@ -97,7 +102,9 @@ def NDN_graph():
 
 
     process_edges()
+    print "back from  process_edges():"
     process_nodes()
+    print "back from  process_nodes():"
 
     G=nx.Graph()
     G.position={}
@@ -159,10 +166,13 @@ def NDN_graph():
           x = x + 8
           y = y - 0.25
         if node == "SRRU":
-          y = y + 15
+          y = y + 16
         if node == "UFPA":
           y = y + 36.5
           x = x - 3
+        if node == "TNO":
+          y = y - 0.2
+          x = x + 7
 
         #if node == "PKU":
         #  x = x -3
