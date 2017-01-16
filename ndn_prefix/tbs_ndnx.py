@@ -450,15 +450,17 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (July 29, 2016) status: TONGJI node may appear down when it is actually up. We are having problems getting full status reports from it.<br></font>
 <font size="3" face="arial">Notes on current (August 2, 2016) status: We are finishing up the upgrade of nodes to Ubuntu 14.04.<br></font>
 <font size="3" face="arial">Notes on current (August 2, 2016) status: NLSR is being upgraded to 0.3.0.<br></font>
-<font size="3" face="arial">Notes on current (August 16, 2016) status: New node being added in Netherlands: TNO <br></font>
-<font size="3" face="arial">Notes on current (August 18, 2016) status: We have been having some routing issues with UFPA and UINDONESIA. Still investigating... <br></font>
-<font size="3" face="arial">Notes on current (August 18, 2016) status: We believe the routing issues with UFPA and UINDONESIA are related to those sites blocking fragmented packets. The NLSR Sync data is usually over the MTU size and hence gets fragmented. We are working with the local sites to rectify.<br></font>
-<font size="3" face="arial">Notes on current (August 26, 2016) status: FIXED. The server that we normally use to collect data for this status page has had a hardware failure. We have shifted to an alternate server and reduced the collection period to 10 minutes. <br></font>
 <font size="3" face="arial">Notes on current (October 5, 2016) status: This week we are upgrading all nodes to nfd 0.5.0. <br></font>
-<font size="3" face="arial">Notes on current (November 10, 2016) status: ndnmap server machine being upgraded today. ndnmap may be done for a while.. <br></font>
+<font size="3" face="arial">Notes on current (November 19, 2016) status: We are starting our transition to Ansible (https://www.ansible.com/) to maintain the NDN Testbed. <br></font>
+<font size="3" face="arial">Notes on current (January 14, 2017) status: Nodes currently marked as down (red) and why:. <br></font>
+<font size="3" face="arial">..............BUPT: unreachable via ssh and http. <br></font>
+<font size="3" face="arial">...........PADUA: unreachable via ssh and http. <br></font>
+<font size="3" face="arial">...INDONESIA: issues with handling fragmented packets. <br></font>
+<font size="3" face="arial">...............MSU: issues with handling fragmented packets. <br></font>
+<font size="3" face="arial">.............SRRU: issues with handling fragmented packets. <br></font>
+<font size="3" face="arial">........WASEDA: being moved to a new machine. <br></font>
 
 <br>
 
