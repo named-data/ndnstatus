@@ -147,6 +147,10 @@ def is_testbed_prefix(prefix):
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
 		return False
+	#if(re.search("(ndn:/ndn/ucla.edu/%40GUEST\.*)", prefix) != None):
+	#	return False
+	if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
+		return False
 	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
