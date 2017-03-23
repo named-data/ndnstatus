@@ -149,8 +149,15 @@ def is_testbed_prefix(prefix):
 		return False
 	#if(re.search("(ndn:/ndn/ucla.edu/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
+        #print "is_testbed_prefix( " + prefix + " )"
+	if(re.search("(\%40GUEST)", prefix) != None):
 		return False
+	#if(re.search("(\.%40GUEST)", prefix) != None):
+	#	return False
+	#if(re.search("(/ndn/edu/\.*/%40GUEST\.*)", prefix) != None):
+	#	return False
+	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
+	#	return False
 	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.uk)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
@@ -455,16 +462,20 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (August 2, 2016) status: We are finishing up the upgrade of nodes to Ubuntu 14.04.<br></font>
-<font size="3" face="arial">Notes on current (August 2, 2016) status: NLSR is being upgraded to 0.3.0.<br></font>
-<font size="3" face="arial">Notes on current (October 5, 2016) status: This week we are upgrading all nodes to nfd 0.5.0. <br></font>
 <font size="3" face="arial">Notes on current (November 19, 2016) status: We are starting our transition to Ansible (https://www.ansible.com/) to maintain the NDN Testbed. <br></font>
-<font size="3" face="arial">Notes on current (January 14, 2017) status: Nodes currently marked as down (red) and why:. <br></font>
-<font size="3" face="arial">..............BUPT: unreachable via ssh and http. <br></font>
-<font size="3" face="arial">...........PADUA: unreachable via ssh and http. <br></font>
-<font size="3" face="arial">...INDONESIA: issues with handling fragmented packets. <br></font>
-<font size="3" face="arial">...............MSU: issues with handling fragmented packets. <br></font>
-<font size="3" face="arial">.............SRRU: issues with handling fragmented packets. <br></font>
-<font size="3" face="arial">........WASEDA: being moved to a new machine. <br></font>
+<font size="3" face="arial">Notes on current (January 30, 2017) status: Nodes with problems that have work-arounds. <br></font>
+<font size="3" face="arial">...............MSU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
+<font size="3" face="arial">...............BYU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
+<font size="3" face="arial">Notes on current (January 30, 2017) status: nfd 0.5.1 has been installed. NLSR 0.3.1 had some issues and will be installed at a later date. <br></font>
+<font size="3" face="arial">Notes on current (January 31, 2017) status: Nodes with problems that have work-arounds. <br></font>
+<font size="3" face="arial">.............SRRU: MTU set to 1460 and TCP faces. Something on some paths to SRRU is not handling large packets. MTU=1460  and TCP faces relieves problem. <br></font>
+<font size="3" face="arial">Notes on current (February 3, 2017) status: WASEDA is now re-installed on a new machine and back up. <br></font>
+<font size="3" face="arial">Notes on current (February 7, 2017) status: NLSR 0.3.1 is being installed today. <br></font>
+<font size="3" face="arial">Notes on current (February 14, 2017) status: INDONESIA: Issues with fragmentation are now fixed.<br></font>
+<font size="3" face="arial">Notes on current (February 20, 2017) status: PKUSZ: New node installed at Peking University Shenzhen Graduate School (PKUSZ).<br></font>
+<font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
+<font size="3" face="arial">Notes on current (March 15, 2017) status: TONGJI is leaving the NDN Testbed. <br></font>
+<font size="3" face="arial">Notes on current (March 15, 2017) status: Cacti graph system being re-installed today. It will be unavailable for a couple of hours. <br></font>
 
 <br>
 
@@ -500,7 +511,7 @@ def fes_html_gen(all_prefix):
         html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map </A>"
         html_code += "\n"
 	html_code += "<br />"
-        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs</A>"
+        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs (currently unavailable 3/15/17)</A>"
         html_code += "\n"
 	html_code += "<br />"
         html_code += "<DT> <A HREF=\"http://netlab.cs.memphis.edu/script/htm/ndn-status/status.htm\">NDN Routing</A>"

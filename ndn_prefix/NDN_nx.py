@@ -145,8 +145,8 @@ def NDN_graph():
         #if node == "VERISIGN":
         #  y = y -1
         if node == "NTNU":
-          y = y - 12
-          x = x - 6
+          y = y - 12.6
+          x = x - 5.0
         if node == "COPELABS":
           y = y - 0.5
           x = x + 4
@@ -165,14 +165,22 @@ def NDN_graph():
         if node == "NIST":
           x = x + 8
           y = y - 0.25
+        if node == "MSU":
+          y = y + 16.25
+          x = x - 4
         if node == "SRRU":
           y = y + 16
         if node == "UFPA":
           y = y + 36.5
           x = x - 3
+        if node == "PADUA":
+          x = x + 2
         if node == "TNO":
-          y = y - 0.2
-          x = x + 7
+          y = y + 0.4
+          x = x - 5.0
+        if node == "PKUSZ":
+          y = y + 18
+          x = x - 0
 
         #if node == "PKU":
         #  x = x -3
@@ -206,7 +214,7 @@ if __name__ == '__main__':
     print graphLabel
     try:
         print "about to plt.figure"
-        plt.figure(figsize=(24,12))
+        plt.figure(figsize=(28,14))
         plt.title(graphLabel, fontsize=24)
         print "about to nx.draw"
         #nx.draw(G,G.position, with_labels=True)
