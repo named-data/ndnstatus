@@ -475,7 +475,9 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (February 20, 2017) status: PKUSZ: New node installed at Peking University Shenzhen Graduate School (PKUSZ).<br></font>
 <font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
 <font size="3" face="arial">Notes on current (March 15, 2017) status: TONGJI is leaving the NDN Testbed. <br></font>
-<font size="3" face="arial">Notes on current (March 15, 2017) status: Cacti graph system being re-installed today. It will be unavailable for a couple of hours. <br></font>
+<font size="3" face="arial">Notes on current (April 11, 2017) status: BUPT is recovering from a fire and an A/C outage. <br></font>
+<font size="3" face="arial">Notes on current (May 15, 2017) status: TONGJI is coming back into the NDN Testbed. Currently being installed and configured. <br></font>
+<font size="3" face="arial">Notes on current (May 22, 2017) status: A new node is being installed at the Computer Network Information Center (CNIC) of the Chinese Academy of Science. . <br></font>
 
 <br>
 
@@ -511,7 +513,7 @@ def fes_html_gen(all_prefix):
         html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map </A>"
         html_code += "\n"
 	html_code += "<br />"
-        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs (currently unavailable 3/15/17)</A>"
+        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs </A>"
         html_code += "\n"
 	html_code += "<br />"
         html_code += "<DT> <A HREF=\"http://netlab.cs.memphis.edu/script/htm/ndn-status/status.htm\">NDN Routing</A>"
