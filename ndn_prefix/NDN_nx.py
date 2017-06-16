@@ -13,7 +13,7 @@ def process_nodes():
   shortNametWords = {}
   positionWords = {}
 
-  print "process_nodes():"
+  #print "process_nodes():"
   f = open('geocode.json','r')
 
   foundShortName = False
@@ -23,18 +23,18 @@ def process_nodes():
 
   #print "line: ", line
   while line != '' :
-    print "process_nodes(): top of while"
+    #print "process_nodes(): top of while"
     words = line.split()
-    print "words[0]: ", words[0]
-    print "process_nodes(): checking shortname"
+    #print "words[0]: ", words[0]
+    #print "process_nodes(): checking shortname"
     if words[0] == "\"shortname\":":
       #words = line.split(':')
       #print "found line with shortname"
       shortNameWords = words[1].split(',')
       foundShortName = True
       shortName = shortNameWords[0][1:len(shortNameWords[0])-1]
-      print "shortName: ", shortName
-    print "process_nodes(): checking position"
+      #print "shortName: ", shortName
+    #print "process_nodes(): checking position"
     if words[0] == "\"position\":":
       indexLB = line.find("[")
       indexRB = line.find("]")
@@ -44,17 +44,17 @@ def process_nodes():
       #print "line[COMMA+1,RB]: ", line[indexCOMMA+1:indexRB]
       x = float(line[indexLB+1:indexCOMMA])
       y = float(line[indexCOMMA+1:indexRB])
-      print "x,y", x, ", ", y
+      #print "x,y", x, ", ", y
       foundPosition = True
-    print "process_nodes(): checking founds"
+    #print "process_nodes(): checking founds"
     if foundShortName == True and foundPosition == True :
       nodes_with_positions[shortName] = (x,y)
-      print "processed node: ", shortName, "with position: x: ", x, "y: ", y
+      #print "processed node: ", shortName, "with position: x: ", x, "y: ", y
       foundShortName = False
       foundPosition = False
     line = f.readline()
-    print "line: >", line, "<"
-  print "end process_nodes():"
+    #print "line: >", line, "<"
+  #print "end process_nodes():"
 
 def process_edges():
   startWords = {}
@@ -73,12 +73,12 @@ def process_edges():
     words = line.split()
     if words[0] == "\"start\":":
       startWords = words[1].split(',')
-      print "found Start", startWords[0]
+      #print "found Start", startWords[0]
       foundStart = True
       startName = startWords[0][1:len(startWords[0])-1]
     if words[0] == "\"end\":":
       endWords = words[1].split(',')
-      print "found End", endWords[0]
+      #print "found End", endWords[0]
       foundEnd = True
       endName = endWords[0][1:len(endWords[0])-1]
     if words[0] == "\"nlsr_weight\":":
@@ -102,9 +102,9 @@ def NDN_graph():
 
 
     process_edges()
-    print "back from  process_edges():"
+    #print "back from  process_edges():"
     process_nodes()
-    print "back from  process_nodes():"
+    #print "back from  process_nodes():"
 
     G=nx.Graph()
     G.position={}
@@ -175,23 +175,28 @@ def NDN_graph():
           x = x - 3
         if node == "PADUA":
           x = x + 2
+        if node == "BERN":
+          y = y - 1
         if node == "TNO":
           y = y + 0.4
           x = x - 5.0
         if node == "PKUSZ":
           y = y + 18
           x = x - 0
+        if node == "CNIC":
+          y = y + 0
+          x = x - 2
 
         #if node == "PKU":
         #  x = x -3
         G.add_node(node)
         G.position[node] = (x,y)
         #print "Adding node: >", node, "< with position: ", x, ",", y
-        print "Adding node: >", node, "< with position: ", G.position[node]
+        #print "Adding node: >", node, "< with position: ", G.position[node]
 
     for (n1,n2),l in edges_with_labels.iteritems():
         G.add_edge(n1,n2)
-        print "Adding edge: >", n1, "< >", n2, "< ", l
+        #print "Adding edge: >", n1, "< >", n2, "< ", l
         G.edge_labels[(n1,n2)] = l
 
     return G            
@@ -201,25 +206,25 @@ if __name__ == '__main__':
 
     G=NDN_graph()
 
-    for n in G.nodes():
-       print "node n:", n
+    #for n in G.nodes():
+    #   print "node n:", n
 
-    print("digraph has %d nodes with %d edges"\
-          %(nx.number_of_nodes(G),nx.number_of_edges(G)))
+    #print("digraph has %d nodes with %d edges"\
+    #      %(nx.number_of_nodes(G),nx.number_of_edges(G)))
     graphLabel = "NDN Testbed ("
     graphLabel += str(nx.number_of_nodes(G))
     graphLabel += " nodes, "
     graphLabel += str(nx.number_of_edges(G))
     graphLabel += " links with NLSR costs) "
-    print graphLabel
+    #print graphLabel
     try:
-        print "about to plt.figure"
+        #print "about to plt.figure"
         plt.figure(figsize=(28,14))
         plt.title(graphLabel, fontsize=24)
-        print "about to nx.draw"
+        #print "about to nx.draw"
         #nx.draw(G,G.position, with_labels=True)
         nx.draw(G,G.position, node_size=1000, with_labels=True)
-        print "about to nx.draw_networkx_edge_labels"
+        #print "about to nx.draw_networkx_edge_labels"
         nx.draw_networkx_edge_labels(G,G.position, edge_labels=G.edge_labels)
 
         # scale the axes 

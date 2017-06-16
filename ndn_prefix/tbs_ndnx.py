@@ -478,6 +478,11 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (April 11, 2017) status: BUPT is recovering from a fire and an A/C outage. <br></font>
 <font size="3" face="arial">Notes on current (May 15, 2017) status: TONGJI is coming back into the NDN Testbed. Currently being installed and configured. <br></font>
 <font size="3" face="arial">Notes on current (May 22, 2017) status: A new node is being installed at the Computer Network Information Center (CNIC) of the Chinese Academy of Science. . <br></font>
+<font size="3" face="arial">Notes on current (May 25, 2017) status: This status page has been moved to a new site: http://ndndemo.arl.wustl.edu/ndn.html . More tweaks on the way.<br></font>
+<font size="3" face="arial">Notes on current (June 13, 2017) status: Updates to NFD and NLSR today. Status will bounce up and down a bit.<br></font>
+<font size="3" face="arial">Notes on current (June 14, 2017) status: Updates to NFD and NLSR yesterday have not gone well. We have a bug in NLSR that causes it to crash repeatedly in our Testbed conditions. We are working on a fix.<br></font>
+<font size="3" face="arial">Notes on current (June 15, 2017) status: We are still working on a fix.<br></font>
+<font size="3" face="arial">Notes on current (June 15, 2017) status: Fixed. The NDN Testbed should be back to normal.<br></font>
 
 <br>
 
@@ -508,6 +513,12 @@ def fes_html_gen(all_prefix):
 	#out = str(out) + " (CST)"
 	#generate description and beginning of the table
 	html_code = gen_html_start()
+	html_code += "<br />"
+	html_code += "<br />"
+        html_code += "<body><font size=\"4\" face=\"arial\">Note the new site location http://ndndemo.arl.wustl.edu/ndn.html</font>\n"
+        html_code += "\n"
+	html_code += "<br />"
+	html_code += "<br />"
         html_code += "<body><font size=\"4\" face=\"arial\">Other NDN status pages:</font>\n"
         html_code += "\n"
         html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map </A>"
@@ -790,10 +801,10 @@ def fentry_status_gen():
 	#every valid prefix(prefixes that represent a node in the topology e.g. ndn:/ndn/some_website.edu)
 	all_fentry_prefix = []
 	all_nodes_prefix_lists = []
-	my_output_file = "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/tbs_ndnx.html"
+	my_output_file = "/home/jdd/WU-ARL/ndnstatus/ndn_prefix/tbs_ndnx.html"
 
 	#get and store all xml from ccndstatus webages
-	get_all_xml(config.node_url, "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/", config.xml_list, 10);
+	get_all_xml(config.node_url, "/home/jdd/WU-ARL/ndnstatus/ndn_prefix/xmlfiles/", config.xml_list, 10);
         ## handle UCLA differently
 	#subprocess.call(["cp", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA.html"])
 	#subprocess.call(["/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/processUCLA.sh", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA.html", "/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/xmlfiles/UCLA"])
@@ -817,7 +828,7 @@ def fentry_status_gen():
 
 def main():
 	#print(datetime.now())
-	setup("/home/research/jdd/Library/HTML/Public/ndnstatus/ndn_prefix/config_file_ndnx")
+	setup("/home/jdd/WU-ARL/ndnstatus/ndn_prefix/config_file_ndnx")
 	fentry_status_gen()
 	#print(datetime.now())
 if __name__=="__main__":main()
