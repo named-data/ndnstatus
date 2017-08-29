@@ -461,22 +461,13 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (August 2, 2016) status: We are finishing up the upgrade of nodes to Ubuntu 14.04.<br></font>
-<font size="3" face="arial">Notes on current (November 19, 2016) status: We are starting our transition to Ansible (https://www.ansible.com/) to maintain the NDN Testbed. <br></font>
 <font size="3" face="arial">Notes on current (January 30, 2017) status: Nodes with problems that have work-arounds. <br></font>
 <font size="3" face="arial">...............MSU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
 <font size="3" face="arial">...............BYU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
-<font size="3" face="arial">Notes on current (January 30, 2017) status: nfd 0.5.1 has been installed. NLSR 0.3.1 had some issues and will be installed at a later date. <br></font>
 <font size="3" face="arial">Notes on current (January 31, 2017) status: Nodes with problems that have work-arounds. <br></font>
 <font size="3" face="arial">.............SRRU: MTU set to 1460 and TCP faces. Something on some paths to SRRU is not handling large packets. MTU=1460  and TCP faces relieves problem. <br></font>
-<font size="3" face="arial">Notes on current (February 3, 2017) status: WASEDA is now re-installed on a new machine and back up. <br></font>
-<font size="3" face="arial">Notes on current (February 7, 2017) status: NLSR 0.3.1 is being installed today. <br></font>
-<font size="3" face="arial">Notes on current (February 14, 2017) status: INDONESIA: Issues with fragmentation are now fixed.<br></font>
-<font size="3" face="arial">Notes on current (February 20, 2017) status: PKUSZ: New node installed at Peking University Shenzhen Graduate School (PKUSZ).<br></font>
 <font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
-<font size="3" face="arial">Notes on current (March 15, 2017) status: TONGJI is leaving the NDN Testbed. <br></font>
 <font size="3" face="arial">Notes on current (April 11, 2017) status: BUPT is recovering from a fire and an A/C outage. <br></font>
-<font size="3" face="arial">Notes on current (May 15, 2017) status: TONGJI is coming back into the NDN Testbed. Currently being installed and configured. <br></font>
 <font size="3" face="arial">Notes on current (May 22, 2017) status: A new node is being installed at the Computer Network Information Center (CNIC) of the Chinese Academy of Science. . <br></font>
 <font size="3" face="arial">Notes on current (May 25, 2017) status: This status page has been moved to a new site: http://ndndemo.arl.wustl.edu/ndn.html . More tweaks on the way.<br></font>
 <font size="3" face="arial">Notes on current (June 13, 2017) status: Updates to NFD and NLSR today. Status will bounce up and down a bit.<br></font>
