@@ -168,6 +168,12 @@ def NDN_graph():
         if node == "MSU":
           y = y + 16.25
           x = x - 4
+        if node == "MUMBAI_AWS":
+          y = y + 16
+          x = x - 120
+        if node == "UUM":
+          y = y + 26.7
+          x = x + 15
         if node == "SRRU":
           y = y + 16
         if node == "UFPA":
