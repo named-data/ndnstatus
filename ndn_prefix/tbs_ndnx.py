@@ -461,9 +461,6 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (January 30, 2017) status: Nodes with problems that have work-arounds. <br></font>
-<font size="3" face="arial">...............MSU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
-<font size="3" face="arial">...............BYU: Now using TCP for nfd faces. Has issues with handling fragmented UDP packets. Up by using TCP faces <br></font>
 <font size="3" face="arial">Notes on current (January 31, 2017) status: Nodes with problems that have work-arounds. <br></font>
 <font size="3" face="arial">.............SRRU: MTU set to 1460 and TCP faces. Something on some paths to SRRU is not handling large packets. MTU=1460  and TCP faces relieves problem. <br></font>
 <font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
@@ -474,7 +471,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (June 14, 2017) status: Updates to NFD and NLSR yesterday have not gone well. We have a bug in NLSR that causes it to crash repeatedly in our Testbed conditions. We are working on a fix.<br></font>
 <font size="3" face="arial">Notes on current (June 15, 2017) status: We are still working on a fix.<br></font>
 <font size="3" face="arial">Notes on current (June 15, 2017) status: Fixed. The NDN Testbed should be back to normal.<br></font>
-
+<font size="3" face="arial">Notes on current (Sept. 29, 2017) status: MSU and BYU no longer need TCP faces to work around fragmented packet issues. We are still working on SRRU.<br></font>
 <br>
 
 """
