@@ -206,20 +206,27 @@ def fentry_domain_sort(fentry_list):
 #      output_folder--output directory for all xml files received from wget
 #      master_xml_list--a list to append the xml strings as you receive them
 def get_all_xml(source_url, output_folder, master_xml_list, wait):
+	versions_folder = output_folder + "../versions/"
 	p = subprocess.call(["rm", "-rf", output_folder])
 	p = subprocess.call(["mkdir", "-p", output_folder])
+	p = subprocess.call(["mkdir", "-p", versions_folder])
 	for node_tuple in source_url:
 		#wget try once, time out after 5 seconds, quite(no output), background, specify output file
 		#use n(xml_link, domain, name abbr)'s name abbr as temp file name.
 		temp_filename = node_tuple[2]
 		p = subprocess.Popen(["wget","--no-check-certificate", "-t 2","-T 5","-q","-b","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
                 print "wget --no-check-certificate -t 2 -T 5 -q -b -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
+		#split_node_tuple0 = node_tuple[0].split("?") 
+		#versions_file = split_node_tuple0[0] + "/versions.txt"
+		#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
+		#q = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
 	#wait for wait seconds for xml to come back
 	time.sleep(10)
 	for node_tuple in source_url:
 		out = ""
 		try:
 			#open and read xml in temp files, may return error asynchronous access
+			#print "checking status of xml file for " + temp_filename
 			xml_file = open(output_folder+node_tuple[2],'r')
 			for line in xml_file:
 				out += line
@@ -239,12 +246,20 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
                                         print "Second Attempt came up empty also"
                                 else:
                                         print "Second Attempt returned data"
+                	if(len(out) != 0):
+		                temp_filename = node_tuple[2]
+				# We got an xml file so we should try for the versions file, but only try once
+				split_node_tuple0 = node_tuple[0].split("?") 
+				versions_file = split_node_tuple0[0] + "/versions.txt"
+				#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
+				p = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
 			master_xml_list.append(out)
 		except IOError as e:
 			#if error occurs, append empty string as substitute for xml
                         print "get_all_xml(): except IOError as e: setting empty xml_list e = " + e
 			master_xml_list.append(out)
 			continue
+
 #returns list of valid forwarding entries for one node.
 def get_fentry(xml_string):
 	#???global xml_list
