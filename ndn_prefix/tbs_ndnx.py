@@ -472,6 +472,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (June 15, 2017) status: We are still working on a fix.<br></font>
 <font size="3" face="arial">Notes on current (June 15, 2017) status: Fixed. The NDN Testbed should be back to normal.<br></font>
 <font size="3" face="arial">Notes on current (Sept. 29, 2017) status: MSU and BYU no longer need TCP faces to work around fragmented packet issues. We are still working on SRRU.<br></font>
+<font size="3" face="arial">Notes on current (Feb. 2, 2018) status: We are in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
 <br>
 
 """
