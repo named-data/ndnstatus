@@ -477,17 +477,11 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
 <font size="3" face="arial">Notes on current (January 31, 2017) status: Nodes with problems that have work-arounds. <br></font>
-<font size="3" face="arial">.............SRRU: MTU set to 1460 and TCP faces. Something on some paths to SRRU is not handling large packets. MTU=1460  and TCP faces relieves problem. <br></font>
 <font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
 <font size="3" face="arial">Notes on current (April 11, 2017) status: BUPT is recovering from a fire and an A/C outage. <br></font>
-<font size="3" face="arial">Notes on current (May 22, 2017) status: A new node is being installed at the Computer Network Information Center (CNIC) of the Chinese Academy of Science. . <br></font>
-<font size="3" face="arial">Notes on current (May 25, 2017) status: This status page has been moved to a new site: http://ndndemo.arl.wustl.edu/ndn.html . More tweaks on the way.<br></font>
-<font size="3" face="arial">Notes on current (June 13, 2017) status: Updates to NFD and NLSR today. Status will bounce up and down a bit.<br></font>
-<font size="3" face="arial">Notes on current (June 14, 2017) status: Updates to NFD and NLSR yesterday have not gone well. We have a bug in NLSR that causes it to crash repeatedly in our Testbed conditions. We are working on a fix.<br></font>
-<font size="3" face="arial">Notes on current (June 15, 2017) status: We are still working on a fix.<br></font>
-<font size="3" face="arial">Notes on current (June 15, 2017) status: Fixed. The NDN Testbed should be back to normal.<br></font>
-<font size="3" face="arial">Notes on current (Sept. 29, 2017) status: MSU and BYU no longer need TCP faces to work around fragmented packet issues. We are still working on SRRU.<br></font>
-<font size="3" face="arial">Notes on current (Feb. 2, 2018) status: We are in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
+<font size="3" face="arial">Notes on current (Feb. 2, 2018) status: We are in the process of upgrading to the latest versions of NFD (0.6.0) and NLSR. It will be a little bumpy for a few days..<br></font>
+<font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are STILL in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
+<font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are expanding what is reported at the top of this status table. Versions for NLSR, ndn-cxx and libchronosync are blank right now, they are coming soon....<br></font>
 <br>
 
 """
@@ -498,6 +492,16 @@ def gen_prefix_status_description():
 #generates html to display forwarding entry status
 #list of unique prefix, list of lists, each list represents list of prefixes for a node
 def fes_html_gen(all_prefix):
+	Node_Name_row = 1
+        OS_Version_row = 2
+        NFD_Version_row = 3
+        ndn_cxx_Version_row = 4
+        NLSR_Version_row = 5
+        ChronoSync_Version_row = 6
+        NFD_Uptime_row = 7
+        NLSR_Uptime_row = 8
+        Current_Time_row = 9
+        Clock_Skew_row = 10
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
 	#list of node objects
@@ -506,7 +510,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["Version", "NFD Up Time ", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["OS Version", "NFD Version", "ndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -550,7 +554,8 @@ def fes_html_gen(all_prefix):
 
 	#Build skeleton for table representation
 	#+5 is for the first 5 rows.
-	for i in range(0, len(all_prefix)+5):
+	#for i in range(0, len(all_prefix)+5):
+	for i in range(0, len(all_prefix)+Clock_Skew_row):
 		table_skeleton.append([])
 
 	#gather reqired info for the first 5 rows
@@ -567,23 +572,48 @@ def fes_html_gen(all_prefix):
 	#generates the first row (ONLINE or OFFLINE). Done in row major order (horizontally).
 	for i in range(0, len(config.node_url)):
 		if(node_list[i].get_stat() == "ONLINE"):
-			table_skeleton[0].append(1) #online
+			table_skeleton[Node_Name_row-1].append(1) #online
 		else:
                         print "Marking a node as OFFLINE" 
-			table_skeleton[0].append(0) #offline
+			table_skeleton[Node_Name_row-1].append(0) #offline
 			offline_nodes.append(i)
 
 	#generate rows 2,3,4,5: API number, start time, current time and clock skew respectively. Done in row major order (horizontally).
 	for i in range(0, len(info_list)):
 		for j in node_list:
-			#row 2
-			if(i == 0):
+			#row 2 NFD Version
+			#if(i == 0):
+			if(i == (OS_Version_row - 2)):
+				#if(j.get_stat()== "ONLINE"):
+				#	table_skeleton[NFD_Version_row -1].append(j.get_api())
+				#else:
+				#	table_skeleton[NFD_Version_row -1].append(4) #&nbsp;
+                                table_skeleton[OS_Version_row -1].append(4) #&nbsp;
+			if(i == (NFD_Version_row - 2)):
 				if(j.get_stat()== "ONLINE"):
-					table_skeleton[1].append(j.get_api())
+					table_skeleton[NFD_Version_row -1].append(j.get_api())
 				else:
-					table_skeleton[1].append(4) #&nbsp;
-			#row 3
-			if(i == 1):
+					table_skeleton[NFD_Version_row -1].append(4) #&nbsp;
+                        if(i == (ndn_cxx_Version_row - 2)):
+                                #if(j.get_stat()== "ONLINE"):
+                                #       table_skeleton[1].append(j.get_api())
+                                #else:
+                                #       table_skeleton[1].append(4) #&nbsp;
+                                table_skeleton[ndn_cxx_Version_row -1].append(4) #&nbsp;
+                        if(i == (NLSR_Version_row - 2)):
+                                #if(j.get_stat()== "ONLINE"):
+                                #       table_skeleton[1].append(j.get_api())
+                                #else:
+                                #       table_skeleton[1].append(4) #&nbsp;
+                                table_skeleton[NLSR_Version_row -1].append(4) #&nbsp;
+			if(i == (ChronoSync_Version_row - 2)):
+				#if(j.get_stat()== "ONLINE"):
+				#	table_skeleton[1].append(j.get_api())
+				#else:
+				#	table_skeleton[1].append(4) #&nbsp;
+				table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
+			#row 3 NFD Up Time
+			if(i == (NFD_Uptime_row - 2)):
 				if(j.get_stat()== "ONLINE"):
                                         p =subprocess.Popen(["date","-u","-d "+j.get_start(),"+%s"], stdout=subprocess.PIPE)
 	                                start_time_secs, err = p.communicate()
@@ -617,20 +647,26 @@ def fes_html_gen(all_prefix):
                                         #print up_time_str
                                         #print "%dd %dh %dm %ds" % (elapsed_days, elapsed_hours, elapsed_mins, remaining_secs)
 					#table_skeleton[2].append(j.get_start())
-					table_skeleton[2].append(up_time_str)
+					table_skeleton[NFD_Uptime_row - 1].append(up_time_str)
                                         #print "after j.get_start() table_skeleton[2] = " + str(table_skeleton[2])
 				else:	
-					table_skeleton[2].append(4) #&nbsp;
-			#row 4
-			if(i == 2):
+					table_skeleton[NFD_Uptime_row - 1].append(4) #&nbsp;
+                        if(i == (NLSR_Uptime_row - 2)):
+                                #if(j.get_stat()== "ONLINE"):
+                                #       table_skeleton[1].append(j.get_api())
+                                #else:
+                                #       table_skeleton[1].append(4) #&nbsp;
+                                table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
+			#row 4 Current Time (UTC)
+			if(i == (Current_Time_row - 2)):
 				if(j.get_stat()== "ONLINE"):
-					table_skeleton[3].append(j.get_node_time())
+					table_skeleton[Current_Time_row - 1].append(j.get_node_time())
                                         #print "adding get_node_time() to table: " + j.get_node_time()
 				else:	
-					table_skeleton[3].append(4) #&nbsp;
+					table_skeleton[Current_Time_row - 1].append(4) #&nbsp;
                                         #print "NOT adding get_node_time() to table: " + j.get_node_time()
-			#row 5
-			if(i == 3):
+			#row 5 Clock Skew
+			if(i == (Clock_Skew_row - 2)):
 				if(j.get_stat() == "ONLINE"):
                                         #print "calculating skew: machine_time: " + j.get_machine_time() 
                                         #print "calculating skew: standard_ucla_time: " + standard_ucla_time 
@@ -641,13 +677,13 @@ def fes_html_gen(all_prefix):
 					skew = time_loe(standard_ucla_time, j.get_node_time(), 5, 30, 0)
                                         #skew = 1
 					if(skew == 1):
-						table_skeleton[4].append(1) #green
+						table_skeleton[Clock_Skew_row-1].append(1) #green
 					elif(skew == 2):
-						table_skeleton[4].append(2) #yellow
+						table_skeleton[Clock_Skew_row-1].append(2) #yellow
 					else:
-						table_skeleton[4].append(0) #red
+						table_skeleton[Clock_Skew_row-1].append(0) #red
 				else:
-					table_skeleton[4].append(0) #red
+					table_skeleton[Clock_Skew_row-1].append(0) #red
 
 	#generate the rest of the rows (6 and beyond). 
 	#Done in column major order for optimization (veritcally/per node basis).
@@ -665,13 +701,14 @@ def fes_html_gen(all_prefix):
 	#as well. Therefore, the nodes and their correspond xml have the same indexing
 	#for each prefix, check whether or not a node has the prefix
 	#starting at the 5th row of table skeleton and beyond
-	for j in range(5, len(table_skeleton)):
+	#for j in range(5, len(table_skeleton)):
+	for j in range(Clock_Skew_row, len(table_skeleton)):
                 #print "fes_html_gen() checking prefix: " + all_prefix[j-4].get_prefix()
 		for i in range(0, len(config.node_url)):
                         #for k in range(0, len(all_prefixes_available[i])):
                         #    print "all_prefixes_available[i:%d][k:%d]: %s " % (i, k, all_prefixes_available[i][k])
 			#if the current node has this prefix, then color is green
-			if(all_prefix[j-5].get_prefix() in all_prefixes_available[i]):
+			if(all_prefix[j-Clock_Skew_row].get_prefix() in all_prefixes_available[i]):
 				table_skeleton[j].append(1) #green
 			#if the current node is offline, then color is gray
 			elif(i in offline_nodes):
@@ -679,8 +716,8 @@ def fes_html_gen(all_prefix):
 			#if the current node does not have the prefix, but the
 			#prefix is the prefix of the current node, then color is
 			#yellow
-			elif(not(all_prefix[j-5].get_prefix() in all_prefixes_available[i])
-			and (all_prefix[j-5].get_domain() == config.node_url[i][1])):
+			elif(not(all_prefix[j-Clock_Skew_row].get_prefix() in all_prefixes_available[i])
+			and (all_prefix[j-Clock_Skew_row].get_domain() == config.node_url[i][1])):
                                 #print "fes_html_gen() setting table_skeleton[%d] to YELLOW" % j
 				table_skeleton[j].append(2) #yellow
 			#the current node do not have this prefix, color is red
@@ -692,26 +729,36 @@ def fes_html_gen(all_prefix):
 	for i in range(0, len(config.node_url)):
 		all_url_links[config.node_url[i][1]] = config.node_url[i][0][:-7]
 	for i in range(0, len(table_skeleton)):
-		if(i == 1):
+		if(i == Node_Name_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
-		elif(i == 2):
+		elif(i == OS_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
-		elif(i == 3):
+		elif(i == NFD_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
-		elif(i == 4):
+		elif(i == ndn_cxx_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
-		elif(i >= 5):
-			link = all_url_links.get(get_domain(all_prefix[i-5].get_prefix()))
+		elif(i == NLSR_Version_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == ChronoSync_Version_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == NFD_Uptime_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == NLSR_Uptime_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == Current_Time_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i >= Clock_Skew_row):
+			link = all_url_links.get(get_domain(all_prefix[i-Clock_Skew_row].get_prefix()))
 			if(link):
 				html_code += "<tr>\n<td width = 180px;><a href=\""+link
-				html_code += "\" target=\"_blank\">"+"<font size=\"2\">"+all_prefix[i-5].get_prefix()+"</a></td>"+"</font>\n"
+				html_code += "\" target=\"_blank\">"+"<font size=\"2\">"+all_prefix[i-Clock_Skew_row].get_prefix()+"</a></td>"+"</font>\n"
 			else:
 				html_code += "<tr>\n<td width = 180px;><a href=\""
-				html_code += "\" target=\"_blank\">"+"<font size=\"2\">"+all_prefix[i-5].get_prefix()+"</a></td>"+"</font>\n"
+				html_code += "\" target=\"_blank\">"+"<font size=\"2\">"+all_prefix[i-Clock_Skew_row].get_prefix()+"</a></td>"+"</font>\n"
 
 		#table_skeleton[i] should have the same length as config.node_url
 		for j in range(0, len(config.node_url)):
-			if(i == 0):
+			if(i == (Node_Name_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
 					html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
@@ -720,22 +767,48 @@ def fes_html_gen(all_prefix):
 					html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+config.node_url[j][2]+"</td>\n"
                         #Version
-			elif(i == 1):
+			elif(i == (OS_Version_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
-			elif(i == 2):
+			elif(i == (NFD_Version_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
-			elif(i == 3):
+			elif(i == (ndn_cxx_Version_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
-			elif(i == 4):
+			elif(i == (NLSR_Version_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (ChronoSync_Version_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (NFD_Uptime_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (NLSR_Uptime_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (Current_Time_row -1)):
+                                print "checking table_skeleton[i][j] to RED" ,  i,j
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (Clock_Skew_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td bgcolor =\""+cell_content[1]+"\">"+cell_content[4]+"</td>\n"
 				elif(table_skeleton[i][j] == 2):
