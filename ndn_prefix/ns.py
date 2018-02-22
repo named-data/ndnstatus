@@ -4,9 +4,13 @@ import iso8601
 from xml.dom.minidom import parse, parseString
 
 class Nentry:
-	def __init__(self, name, api, start, machine_time, node_time, stat):
+	def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version,start, machine_time, node_time, stat):
 		self.name = name
-		self.api = api
+		self.nfd_version = nfd_version
+		self.nlsr_version = nlsr_version
+		self.ndn_cxx_version = ndn_cxx_version
+		self.chronosync_version = chronosync_version
+		self.os_version = os_version
 		if(start != ""):
                         #print "self.config_time(start):" + start
 			self.start = self.config_time(start)
@@ -23,8 +27,16 @@ class Nentry:
 		self.stat = stat
 	def get_name(self):
 		return self.name
-	def get_api(self):
-		return self.api
+	def get_nfd_version(self):
+		return self.nfd_version
+	def get_nlsr_version(self):
+		return self.nlsr_version
+	def get_ndn_cxx_version(self):
+		return self.ndn_cxx_version
+	def get_chronosync_version(self):
+		return self.chronosync_version
+	def get_os_version(self):
+		return self.os_version
 	def get_start(self):
                 #print "get_start() returning self.start: " + self.start
 		return self.start
@@ -46,10 +58,15 @@ class Nentry:
                 #print "config_time returning out = " + out
                 return(out)
 
-def get_node_info(xml_string, uni_name):
+def get_node_info(xml_string, uni_name, versions_filename):
         standard_ucla_time=""
         #print "get_node_info() uni_name " + uni_name
-	api = ""
+        print "get_node_info() uni_name " + uni_name + " versions_filename " + versions_filename
+	nlsr_version = ""
+	ndn_cxx_version = ""
+	chronosync_version = ""
+	os_version = "" 
+	nfd_version = ""
 	start = ""
 	node_time = ""
 	p = subprocess.Popen(["date","-u", "+%Y/%m/%d %H:%M:%S"], stdout=subprocess.PIPE)
@@ -65,19 +82,19 @@ def get_node_info(xml_string, uni_name):
 	
 	if(len(xml_string) == 0):
                 print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
-		return Nentry(uni_name, "", "",  machine_time, "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "OFFLINE")
 	try:
 		xml = parseString(xml_string)
 	except Exception as e:
                 print "get_node_info() marking " + uni_name + " OFFLINE because of exception"
                 print "  xml_string: " + xml_string
-		return Nentry(uni_name, "", "",  machine_time, "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "OFFLINE")
 
         #print "found " + uni_name
         #print "xml_string: " + xml_string
 	if(re.search(">[^<]*<", xml.getElementsByTagName("version")[0].toxml()) != None):
-	        api = re.search(">[^<]*<", xml.getElementsByTagName("version")[0].toxml()).group(0)[1:-1]
-                #print  uni_name + " api: " + api
+	        nfd_version = re.search(">[^<]*<", xml.getElementsByTagName("version")[0].toxml()).group(0)[1:-1]
+                #print  uni_name + " nfd_version: " + nfd_version
 	#return Nentry(uni_name, "", "",  machine_time, "", "OFFLINE")
 	if(re.search(">[^<]*<", xml.getElementsByTagName("startTime")[0].toxml()) != None):
 		start = re.search(">[^<]*<", xml.getElementsByTagName("startTime")[0].toxml()).group(0)[1:-1]
@@ -90,4 +107,13 @@ def get_node_info(xml_string, uni_name):
                      #print "found UCLA setting standard_ucla_time: " + standard_ucla_time
                 #print "get_node_time(): " + self.get_node_time()
 
-	return Nentry(uni_name, api, start, machine_time, node_time, "ONLINE")
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_libchronosync.sh",uni_name], stdout=subprocess.PIPE)
+	chronosync_version,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_nlsr.sh",uni_name], stdout=subprocess.PIPE)
+	nlsr_version,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_ndn-cxx.sh",uni_name], stdout=subprocess.PIPE)
+	ndn_cxx_version,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_os.sh",uni_name], stdout=subprocess.PIPE)
+	os_version,err = p.communicate()
+        #print uni_name + " chronosync_version " + chronosync_version
+	return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version, start, machine_time, node_time, "ONLINE")

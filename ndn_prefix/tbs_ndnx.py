@@ -23,6 +23,7 @@ from datetime import datetime
 #PARAMETERS:
 #	filename: configuration file's file name, e.g. config_file.txt
 #RETURN: NONE
+versions_file_list = []
 def setup(filename):
 	config_file = open(filename, 'r')
 	node_list = []
@@ -43,7 +44,7 @@ def setup(filename):
 			node_tuple = line[2:-2].split(", ")
 			#place the elements in a tuple and insert into (local) node_list
 			node_list.append((node_tuple[0], node_tuple[1], node_tuple[2]))
-                        #print "node_tuple[3]: ", node_tuple[3]
+                        print "node_tuple[3]: ", node_tuple[3]
 			config.names[node_tuple[3]] = "ndn:/"+node_tuple[3][9:]
 			config.valid_prefix[node_tuple[3]] = get_domain(node_tuple[3])
 
@@ -254,6 +255,7 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 				#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
 				p = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
 			master_xml_list.append(out)
+			versions_file_list.append(versions_folder+temp_filename)
 		except IOError as e:
 			#if error occurs, append empty string as substitute for xml
                         print "get_all_xml(): except IOError as e: setting empty xml_list e = " + e
@@ -562,7 +564,7 @@ def fes_html_gen(all_prefix):
 	for i in range(0, len(config.node_url)):
 		#get_node_info is defined in ns.py
 		#node_list.append(get_node_info(config.xml_list[i], config.node_url[i][2]))
-		N = get_node_info(config.xml_list[i], config.node_url[i][2])
+		N = get_node_info(config.xml_list[i], config.node_url[i][2], versions_file_list[i])
                 if ( N.get_name() == "UCLA") :
                     #print "Found UCLA"
                     standard_ucla_time = N.get_node_time()
@@ -584,34 +586,34 @@ def fes_html_gen(all_prefix):
 			#row 2 NFD Version
 			#if(i == 0):
 			if(i == (OS_Version_row - 2)):
-				#if(j.get_stat()== "ONLINE"):
-				#	table_skeleton[NFD_Version_row -1].append(j.get_api())
-				#else:
-				#	table_skeleton[NFD_Version_row -1].append(4) #&nbsp;
-                                table_skeleton[OS_Version_row -1].append(4) #&nbsp;
+				if(j.get_stat()== "ONLINE"):
+					table_skeleton[OS_Version_row -1].append(j.get_os_version())
+				else:
+					table_skeleton[OS_Version_row -1].append(4) #&nbsp;
+                                #table_skeleton[OS_Version_row -1].append(4) #&nbsp;
 			if(i == (NFD_Version_row - 2)):
 				if(j.get_stat()== "ONLINE"):
-					table_skeleton[NFD_Version_row -1].append(j.get_api())
+					table_skeleton[NFD_Version_row -1].append(j.get_nfd_version())
 				else:
 					table_skeleton[NFD_Version_row -1].append(4) #&nbsp;
                         if(i == (ndn_cxx_Version_row - 2)):
-                                #if(j.get_stat()== "ONLINE"):
-                                #       table_skeleton[1].append(j.get_api())
-                                #else:
-                                #       table_skeleton[1].append(4) #&nbsp;
-                                table_skeleton[ndn_cxx_Version_row -1].append(4) #&nbsp;
+                                if(j.get_stat()== "ONLINE"):
+                                       table_skeleton[ndn_cxx_Version_row-1].append(j.get_ndn_cxx_version())
+                                else:
+                                       table_skeleton[ndn_cxx_Version_row-1].append(4) #&nbsp;
+                                #table_skeleton[ndn_cxx_Version_row -1].append(4) #&nbsp;
                         if(i == (NLSR_Version_row - 2)):
-                                #if(j.get_stat()== "ONLINE"):
-                                #       table_skeleton[1].append(j.get_api())
-                                #else:
-                                #       table_skeleton[1].append(4) #&nbsp;
-                                table_skeleton[NLSR_Version_row -1].append(4) #&nbsp;
+                                if(j.get_stat()== "ONLINE"):
+                                       table_skeleton[NLSR_Version_row-1].append(j.get_nlsr_version())
+                                else:
+                                       table_skeleton[NLSR_Version_row-1].append(4) #&nbsp;
+                                #table_skeleton[NLSR_Version_row -1].append(4) #&nbsp;
 			if(i == (ChronoSync_Version_row - 2)):
-				#if(j.get_stat()== "ONLINE"):
-				#	table_skeleton[1].append(j.get_api())
-				#else:
-				#	table_skeleton[1].append(4) #&nbsp;
-				table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
+				if(j.get_stat()== "ONLINE"):
+					table_skeleton[ChronoSync_Version_row-1].append(j.get_chronosync_version())
+				else:
+					table_skeleton[ChronoSync_Version_row-1].append(4) #&nbsp;
+				#table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
 			#row 3 NFD Up Time
 			if(i == (NFD_Uptime_row - 2)):
 				if(j.get_stat()== "ONLINE"):
@@ -653,7 +655,7 @@ def fes_html_gen(all_prefix):
 					table_skeleton[NFD_Uptime_row - 1].append(4) #&nbsp;
                         if(i == (NLSR_Uptime_row - 2)):
                                 #if(j.get_stat()== "ONLINE"):
-                                #       table_skeleton[1].append(j.get_api())
+                                #       table_skeleton[1].append(j.get_nfd_version())
                                 #else:
                                 #       table_skeleton[1].append(4) #&nbsp;
                                 table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
@@ -758,6 +760,7 @@ def fes_html_gen(all_prefix):
 
 		#table_skeleton[i] should have the same length as config.node_url
 		for j in range(0, len(config.node_url)):
+			print "i,j " + str(i) + " " + str(j)
 			if(i == (Node_Name_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
