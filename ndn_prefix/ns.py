@@ -4,12 +4,16 @@ import iso8601
 from xml.dom.minidom import parse, parseString
 
 class Nentry:
-	def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version,start, machine_time, node_time, stat):
+	def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version,start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, stat):
 		self.name = name
 		self.nfd_version = nfd_version
 		self.nlsr_version = nlsr_version
+		self.nlsr_start_time = nlsr_start_time
+		self.nlsr_current_time = nlsr_current_time
 		self.ndn_cxx_version = ndn_cxx_version
 		self.chronosync_version = chronosync_version
+		self.utc_nlsr_start_time = utc_nlsr_start_time
+		self.utc_current_nlsr_time = utc_current_nlsr_time
 		self.os_version = os_version
 		if(start != ""):
                         #print "self.config_time(start):" + start
@@ -31,6 +35,8 @@ class Nentry:
 		return self.nfd_version
 	def get_nlsr_version(self):
 		return self.nlsr_version
+	def get_nlsr_version(self):
+		return self.nlsr_version
 	def get_ndn_cxx_version(self):
 		return self.ndn_cxx_version
 	def get_chronosync_version(self):
@@ -40,6 +46,14 @@ class Nentry:
 	def get_start(self):
                 #print "get_start() returning self.start: " + self.start
 		return self.start
+	def get_nlsr_start_time(self):
+		return self.nlsr_start_time
+	def get_nlsr_current_time(self):
+		return self.nlsr_current_time
+	def get_utc_current_nlsr_time(self):
+		return self.utc_current_nlsr_time
+	def get_utc_nlsr_start_time(self):
+		return self.utc_nlsr_start_time
 	def get_node_time(self):
 		return self.node_time
 	def get_machine_time(self):
@@ -82,13 +96,13 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	
 	if(len(xml_string) == 0):
                 print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
-		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "", "", "", "", "OFFLINE")
 	try:
 		xml = parseString(xml_string)
 	except Exception as e:
                 print "get_node_info() marking " + uni_name + " OFFLINE because of exception"
                 print "  xml_string: " + xml_string
-		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "",  machine_time, "", "", "","", "",  "OFFLINE")
 
         #print "found " + uni_name
         #print "xml_string: " + xml_string
@@ -111,9 +125,18 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	chronosync_version,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_nlsr.sh",uni_name], stdout=subprocess.PIPE)
 	nlsr_version,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_nlsr_start_time.sh",uni_name], stdout=subprocess.PIPE)
+	nlsr_start_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_nlsr_current_time.sh",uni_name], stdout=subprocess.PIPE)
+	nlsr_current_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_utc_current_nlsr_time.sh",uni_name], stdout=subprocess.PIPE)
+	utc_current_nlsr_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_utc_nlsr_start_time.sh",uni_name], stdout=subprocess.PIPE)
+	utc_nlsr_start_time,err = p.communicate()
+
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_ndn-cxx.sh",uni_name], stdout=subprocess.PIPE)
 	ndn_cxx_version,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_os.sh",uni_name], stdout=subprocess.PIPE)
 	os_version,err = p.communicate()
         #print uni_name + " chronosync_version " + chronosync_version
-	return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version, start, machine_time, node_time, "ONLINE")
+	return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, os_version, start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, "ONLINE")

@@ -503,6 +503,9 @@ def fes_html_gen(all_prefix):
         NFD_Uptime_row = 7
         NLSR_Uptime_row = 8
         Current_Time_row = 9
+        #UTC_NLSR_StartTime_row = 10
+        #UTC_Current_NLSR_Time_row = 11
+        #Clock_Skew_row = 12
         Clock_Skew_row = 10
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
@@ -512,7 +515,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["OS Version", "NFD Version", "ndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "UTC NLSR Start Time", "UTC Current Time", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -654,11 +657,48 @@ def fes_html_gen(all_prefix):
 				else:	
 					table_skeleton[NFD_Uptime_row - 1].append(4) #&nbsp;
                         if(i == (NLSR_Uptime_row - 2)):
-                                #if(j.get_stat()== "ONLINE"):
-                                #       table_skeleton[1].append(j.get_nfd_version())
-                                #else:
-                                #       table_skeleton[1].append(4) #&nbsp;
-                                table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
+                                if(j.get_stat()== "ONLINE"):
+                                        print "NAME: " + j.get_name()
+                                        start_time_secs = j.get_nlsr_start_time()
+                                        print "NLSR start_time_secs " + start_time_secs
+                                        node_time_secs = j.get_nlsr_current_time()
+                                        print "NLSR node_time_secs " + node_time_secs
+                                        elapsed_secs=int(node_time_secs)-int(start_time_secs)
+                                        print "NLSR elapsed_secs %d" % (elapsed_secs)
+                                        elapsed_days=elapsed_secs/(60*60*24)
+                                        remaining_secs=elapsed_secs - (elapsed_days * 60*60*24)
+                                        elapsed_hours=remaining_secs/(60*60)
+                                        remaining_secs=remaining_secs - (elapsed_hours * 60*60)
+                                        elapsed_mins=remaining_secs/(60)
+                                        remaining_secs=remaining_secs - (elapsed_mins * 60)
+                                        if (elapsed_days > 1) :
+                                          up_time_str=" "+str(elapsed_days)+" days"
+                                          #print "Up %d days" % (elapsed_days)
+                                        else:
+                                          if (elapsed_days > 0) :
+                                            up_time_str=" "+str(elapsed_days)+" day"
+                                            #print "Up %d day" % (elapsed_days)
+                                          else:
+                                            if (elapsed_hours > 0) :
+                                              up_time_str=" "+str(elapsed_hours)+"h:"+str(elapsed_mins)+"m"
+                                              #print "Up %dh:%dm" % (elapsed_hours, elapsed_mins)
+                                            else:
+                                              up_time_str=" "+str(elapsed_mins)+"m:"+str(remaining_secs)+"s"
+                                              #print "Up %dm %ds" % (elapsed_mins, remaining_secs)
+                                              #table_skeleton[2].append(j.get_start())
+                                        #print up_time_str
+                                        #print "%dd %dh %dm %ds" % (elapsed_days, elapsed_hours, elapsed_mins, remaining_secs)
+                                        #table_skeleton[2].append(j.get_start())
+                                        table_skeleton[NLSR_Uptime_row - 1].append(up_time_str)
+                                        #print "after j.get_start() table_skeleton[2] = " + str(table_skeleton[2])
+                                else:
+                                        table_skeleton[NLSR_Uptime_row - 1].append(4) #&nbsp;
+                        #if(i == (NLSR_Uptime_row - 2)):
+                        #        #if(j.get_stat()== "ONLINE"):
+                        #        #       table_skeleton[1].append(j.get_nfd_version())
+                        #        #else:
+                        #        #       table_skeleton[1].append(4) #&nbsp;
+                        #        table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
 			#row 4 Current Time (UTC)
 			if(i == (Current_Time_row - 2)):
 				if(j.get_stat()== "ONLINE"):
@@ -667,7 +707,23 @@ def fes_html_gen(all_prefix):
 				else:	
 					table_skeleton[Current_Time_row - 1].append(4) #&nbsp;
                                         #print "NOT adding get_node_time() to table: " + j.get_node_time()
-			#row 5 Clock Skew
+			# UTC NLSR Start time
+			#if(i == (UTC_NLSR_StartTime_row - 2)):
+			#	if(j.get_stat()== "ONLINE"):
+			#		table_skeleton[UTC_NLSR_StartTime_row - 1].append(j.get_utc_nlsr_start_time())
+                        #                #print "adding get_node_time() to table: " + j.get_node_time()
+			#	else:	
+			#		table_skeleton[UTC_NLSR_StartTime_row - 1].append(4) #&nbsp;
+                        #                #print "NOT adding get_node_time() to table: " + j.get_node_time()
+			# UTC Current Time for NLSR calc.
+			#if(i == (UTC_Current_NLSR_Time_row - 2)):
+			#	if(j.get_stat()== "ONLINE"):
+			#		table_skeleton[UTC_Current_NLSR_Time_row - 1].append(j.get_utc_current_nlsr_time())
+                        #                #print "adding get_node_time() to table: " + j.get_node_time()
+			#	else:	
+			#		table_skeleton[UTC_Current_NLSR_Time_row - 1].append(4) #&nbsp;
+                        #                #print "NOT adding get_node_time() to table: " + j.get_node_time()
+			# Clock Skew
 			if(i == (Clock_Skew_row - 2)):
 				if(j.get_stat() == "ONLINE"):
                                         #print "calculating skew: machine_time: " + j.get_machine_time() 
@@ -729,7 +785,8 @@ def fes_html_gen(all_prefix):
 
 	all_url_links = dict()
 	for i in range(0, len(config.node_url)):
-		all_url_links[config.node_url[i][1]] = config.node_url[i][0][:-7]
+		#all_url_links[config.node_url[i][1]] = config.node_url[i][0][:-7]
+		all_url_links[config.node_url[i][1]] = config.node_url[i][0][:-1]
 	for i in range(0, len(table_skeleton)):
 		if(i == Node_Name_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
@@ -749,6 +806,10 @@ def fes_html_gen(all_prefix):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == Current_Time_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		#elif(i == UTC_NLSR_StartTime_row):
+		#	html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		#elif(i == UTC_Current_NLSR_Time_row):
+		#	html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i >= Clock_Skew_row):
 			link = all_url_links.get(get_domain(all_prefix[i-Clock_Skew_row].get_prefix()))
 			if(link):
@@ -764,10 +825,12 @@ def fes_html_gen(all_prefix):
 			if(i == (Node_Name_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
-					html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
+					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
+					html_code += config.node_url[j][0][:-1]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 				elif(table_skeleton[i][j] == 0):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[0]+"\"><a href = \""
-					html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
+					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
+					html_code += config.node_url[j][0][:-1]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+config.node_url[j][2]+"</td>\n"
                         #Version
 			elif(i == (OS_Version_row -1)):
@@ -811,6 +874,20 @@ def fes_html_gen(all_prefix):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			#elif(i == (UTC_NLSR_StartTime_row -1)):
+                        #        print "checking table_skeleton[i][j] to RED" ,  i,j
+			#	if(table_skeleton[i][j] == 4):
+			#		html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+			#	else:
+			#		html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			#elif(i == (UTC_Current_NLSR_Time_row -1)):
+                        #        print "checking table_skeleton[i][j] to RED" ,  i,j
+			#	if(table_skeleton[i][j] == 4):
+			#		html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+			#	else:
+			#		print "html_code: " + html_code
+			#		print "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			#		html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (Clock_Skew_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td bgcolor =\""+cell_content[1]+"\">"+cell_content[4]+"</td>\n"
