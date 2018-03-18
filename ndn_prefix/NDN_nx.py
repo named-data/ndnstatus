@@ -176,6 +176,9 @@ def NDN_graph():
           x = x + 15
         if node == "SRRU":
           y = y + 16
+        if node == "UASLP":
+          y = y + 8.5
+          #x = x - 3
         if node == "UFPA":
           y = y + 36.5
           x = x - 3

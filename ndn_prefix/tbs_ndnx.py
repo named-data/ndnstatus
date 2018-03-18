@@ -484,6 +484,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (Feb. 2, 2018) status: We are in the process of upgrading to the latest versions of NFD (0.6.0) and NLSR. It will be a little bumpy for a few days..<br></font>
 <font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are STILL in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
 <font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are expanding what is reported at the top of this status table. Versions for NLSR, ndn-cxx and libchronosync are blank right now, they are coming soon....<br></font>
+<font size="3" face="arial">Notes on current (Mar. 13, 2018) status: The Testbed will be down for a time today as we test some certificate changes.<br></font>
 <br>
 
 """
@@ -515,7 +516,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "UTC NLSR Start Time", "UTC Current Time", "Clock Skew"]
+	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
