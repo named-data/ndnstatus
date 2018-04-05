@@ -182,6 +182,9 @@ def NDN_graph():
         if node == "UFPA":
           y = y + 36.5
           x = x - 3
+        if node == "AAU":
+          x = x - 1
+          y = y + 1.3
         if node == "PADUA":
           x = x + 2
         if node == "BERN":

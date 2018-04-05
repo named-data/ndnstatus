@@ -1,4 +1,5 @@
 # Nodes
+n(http://ndn-itec.aau.at:80/, at/aau, AAU, ndn:/ndn/at/aau)
 n(http://hobo.cs.arizona.edu:80/, edu/arizona, ARIZONA, ndn:/ndn/edu/arizona)
 n(http://ndn.netsec.colostate.edu:80/, edu/colostate, CSU, ndn:/ndn/edu/colostate)
 n(http://titan.cs.memphis.edu:80/, edu/memphis, MEMPHIS, ndn:/ndn/edu/memphis)
