@@ -123,6 +123,12 @@ def NDN_graph():
           x = x + 2
         if node == "WASEDA":
           x = x +2
+        if node == "AVEIRO":
+          x = x -2
+          y = y -1.0
+        if node == "GIST":
+          x = x -3
+          y = y +0.7
         if node == "KISTI":
           x = x +2
           y = y -2
