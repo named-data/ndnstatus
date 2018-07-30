@@ -159,7 +159,7 @@ def is_testbed_prefix(prefix):
 	#	return False
 	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -175,7 +175,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -186,7 +186,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
         print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -253,7 +253,8 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 				split_node_tuple0 = node_tuple[0].split("?") 
 				versions_file = split_node_tuple0[0] + "/versions.txt"
 				#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
-				p = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
+				p = subprocess.Popen(["wget","--no-check-certificate","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
+                                print "wget --no-check-certificate -t 2 -T 5 -q -b -O " + versions_folder + temp_filename + " " + versions_file + " "
 			master_xml_list.append(out)
 			versions_file_list.append(versions_folder+temp_filename)
 		except IOError as e:
@@ -485,6 +486,9 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are STILL in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
 <font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are expanding what is reported at the top of this status table. Versions for NLSR, ndn-cxx and libchronosync are blank right now, they are coming soon....<br></font>
 <font size="3" face="arial">Notes on current (Mar. 13, 2018) status: The Testbed will be down for a time today as we test some certificate changes.<br></font>
+<font size="3" face="arial">Notes on current (Apr. 14, 2018) status: We are in the process of changing over to TLS/https access for the ndn status page. Some nodes will look down when they might not be.<br></font>
+<font size="3" face="arial">Notes on current (May 26, 2018) status: We are in the process of upgrading nodes that are still running 14.04 to bring them up to 16.04 <br></font>
+<font size="3" face="arial">Notes on current (July 24, 2018) status: Adding line to status page for TLS certificate expiry. Still testing... <br></font>
 <br>
 
 """
@@ -503,11 +507,12 @@ def fes_html_gen(all_prefix):
         ChronoSync_Version_row = 6
         NFD_Uptime_row = 7
         NLSR_Uptime_row = 8
-        Current_Time_row = 9
+        TLS_Expiry_row = 9
+        Current_Time_row = 10
         #UTC_NLSR_StartTime_row = 10
         #UTC_Current_NLSR_Time_row = 11
         #Clock_Skew_row = 12
-        Clock_Skew_row = 10
+        Clock_Skew_row = 11
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
 	#list of node objects
@@ -516,7 +521,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -535,7 +540,7 @@ def fes_html_gen(all_prefix):
 	html_code += "<br />"
         html_code += "<body><font size=\"4\" face=\"arial\">Other NDN status pages:</font>\n"
         html_code += "\n"
-        html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map </A>"
+        html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map (currently nonfunctional)</A>"
         html_code += "\n"
 	html_code += "<br />"
         html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs </A>"
@@ -701,6 +706,11 @@ def fes_html_gen(all_prefix):
                         #        #       table_skeleton[1].append(4) #&nbsp;
                         #        table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
 			#row 4 Current Time (UTC)
+			if(i == (TLS_Expiry_row - 2)):
+				if(j.get_stat()== "ONLINE"):
+					table_skeleton[TLS_Expiry_row-1].append(j.get_tls_expiry())
+				else:
+					table_skeleton[TLS_Expiry_row-1].append(4) #&nbsp;
 			if(i == (Current_Time_row - 2)):
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[Current_Time_row - 1].append(j.get_node_time())
@@ -805,6 +815,8 @@ def fes_html_gen(all_prefix):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NLSR_Uptime_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == TLS_Expiry_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == Current_Time_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		#elif(i == UTC_NLSR_StartTime_row):
@@ -865,6 +877,11 @@ def fes_html_gen(all_prefix):
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (NLSR_Uptime_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (TLS_Expiry_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
