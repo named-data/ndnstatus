@@ -191,6 +191,9 @@ def NDN_graph():
         if node == "AAU":
           x = x - 1
           y = y + 1.3
+        if node == "UNIVH2C":
+          x = x - 2.5
+          y = y + 1.3
         if node == "PADUA":
           x = x + 2
         if node == "BERN":

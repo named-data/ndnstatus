@@ -159,7 +159,7 @@ def is_testbed_prefix(prefix):
 	#	return False
 	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
 		return True
 	return False 
@@ -175,7 +175,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -186,7 +186,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
         print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
