@@ -21,7 +21,7 @@ def process():
     if v["https"] == "https://0.0.0.0:443/" :
       print "skipping"
       continue
-    exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "5", v["prefix"]],stdout=devnull, stdin=None, stderr=devnull)
+    exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "3", v["prefix"]],stdout=devnull, stdin=None, stderr=devnull)
     if exit_code == 0:
       #print "exit_code == 0 set ndn-up True"
       v["ndn-up"] = True
