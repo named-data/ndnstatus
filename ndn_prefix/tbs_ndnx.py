@@ -44,7 +44,7 @@ def setup(filename):
 			node_tuple = line[2:-2].split(", ")
 			#place the elements in a tuple and insert into (local) node_list
 			node_list.append((node_tuple[0], node_tuple[1], node_tuple[2]))
-                        print "node_tuple[3]: ", node_tuple[3]
+                        #print "node_tuple[3]: ", node_tuple[3]
 			config.names[node_tuple[3]] = "ndn:/"+node_tuple[3][9:]
 			config.valid_prefix[node_tuple[3]] = get_domain(node_tuple[3])
 
@@ -135,23 +135,31 @@ def setup(filename):
 def is_testbed_prefix(prefix):
 	#if in list of invalid prefixes, return false.
 	#may change to hash table later.
-        #print "is_testbed_prefix( " + prefix + " )"
+        print "is_testbed_prefix( " + prefix + " )"
 	if(prefix in config.invalid_prefix):
+                print "is_testbed_prefix(  FALSE: confg.invalid_prefix  )"
 		return False
 	#more special cases, added before the invalid list is implemented
 	if(re.search("(ndn:/trace)|(ping)|(C1\.M\.K)|(parc\.com/host/ccngw)|(metwi)|(uiuc\.edu/test)|(apps/..*)", prefix) != None):
+                print "is_testbed_prefix(  FALSE: trace,ping,parc... )"
 		return False
 	#more special cases, added before the invalid list is implemented
 	if(re.search("(internal)", prefix) != None):
+                print "is_testbed_prefix(  FALSE: internal  )"
 		return False
 	#more special cases (at least 1 char following the /)
 	#ucla special cases
 	if(re.search("(ndn:/ndn/ucla.edu/%C1\.S\.*)", prefix) != None):
+                print "is_testbed_prefix(  FALSE: internal  )"
 		return False
 	#if(re.search("(ndn:/ndn/ucla.edu/%40GUEST\.*)", prefix) != None):
 	#	return False
         #print "is_testbed_prefix( " + prefix + " )"
 	if(re.search("(\%40GUEST)", prefix) != None):
+                print "is_testbed_prefix(  FALSE: GUEST  )"
+		return False
+	if(re.search("(KEY)", prefix) != None):
+                print "is_testbed_prefix(  FALSE: KEY  )"
 		return False
 	#if(re.search("(\.%40GUEST)", prefix) != None):
 	#	return False
@@ -159,9 +167,11 @@ def is_testbed_prefix(prefix):
 	#	return False
 	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.ca)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
+                print "is_testbed_prefix( TRUE )"
 		return True
+        print "is_testbed_prefix( FALSE: bottom )"
 	return False 
 #get domain name from prefix
 #args: prefix (any prefix)
@@ -175,7 +185,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -186,14 +196,14 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((edu)|(org)|(com)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
-        print "get_domain(" + prefix + ") prime: " + prime
+	prime = re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
+        #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
 	if(dprime != None):
-                print "get_domain(" + prefix + ") returning dprime.group(0)[4:]: " + dprime.group(0)[4:]
+                #print "get_domain(" + prefix + ") returning dprime.group(0)[4:]: " + dprime.group(0)[4:]
 		return dprime.group(0)[4:]
-        print "get_domain(" + prefix + ") returning prime: " + prime
+        #print "get_domain(" + prefix + ") returning prime: " + prime
 	return prime
 #sort by domain, then by prefix if domains are the same
 #args: fentry_list (a list of fentry objects--see fentry.py)
@@ -479,16 +489,14 @@ def gen_prefix_status_description():
 <br/>
 <font size="3" face="arial">Site Prefix Status: (Green: node has FIB entry for prefix; Red: no FIB entry; Yellow: no FIB entry but prefix is in node's domain) <br></font>
 <font size="3" face="arial">Clock Skew Status: (As compared to UCLA Node's time: Green: < 5 secs off; Yellow: 5 <  > 30 secs; Red: > 30 seconds off) <br><br></font>
-<font size="3" face="arial">Notes on current (January 31, 2017) status: Nodes with problems that have work-arounds. <br></font>
 <font size="3" face="arial">Notes on current (March 14, 2017) status: Hyperbolic Routing is now the default for NLSR on the Testbed. <br></font>
-<font size="3" face="arial">Notes on current (April 11, 2017) status: BUPT is recovering from a fire and an A/C outage. <br></font>
-<font size="3" face="arial">Notes on current (Feb. 2, 2018) status: We are in the process of upgrading to the latest versions of NFD (0.6.0) and NLSR. It will be a little bumpy for a few days..<br></font>
-<font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are STILL in the process of upgrading to the latest versions of NFD and NLSR. It will be a little bumpy for a few days..<br></font>
 <font size="3" face="arial">Notes on current (Feb. 20, 2018) status: We are expanding what is reported at the top of this status table. Versions for NLSR, ndn-cxx and libchronosync are blank right now, they are coming soon....<br></font>
-<font size="3" face="arial">Notes on current (Mar. 13, 2018) status: The Testbed will be down for a time today as we test some certificate changes.<br></font>
 <font size="3" face="arial">Notes on current (Apr. 14, 2018) status: We are in the process of changing over to TLS/https access for the ndn status page. Some nodes will look down when they might not be.<br></font>
-<font size="3" face="arial">Notes on current (May 26, 2018) status: We are in the process of upgrading nodes that are still running 14.04 to bring them up to 16.04 <br></font>
-<font size="3" face="arial">Notes on current (July 24, 2018) status: Adding line to status page for TLS certificate expiry. Still testing... <br></font>
+<font size="3" face="arial">Notes on current (July 24, 2018) status: Adding line to status page for TLS certificate expiry. <br></font>
+<font size="3" face="arial">Notes on current (October 22, 2018) status: Updated to NFD 0.6.4. <br></font>
+<font size="3" face="arial">Notes on current (November 1, 2018) status: We are having some serious problems with the new build of NLSR. Expect Testbed nodes to be up and down a lot while we test and debug. <br></font>
+<font size="3" face="arial">Notes on current (March 11, 2019) status: We are upgrading NDN Testbed nodes to latest release of NFD and NLSR. This includes NLSR changes that are incompatible with previous version so things will be disjoint as they get updated. <br></font>
+<font size="3" face="arial">Notes on current (March 13, 2019) status: A bunch of site certs need updating. Things will be bumpy for a while today.. <br></font>
 <br>
 
 """
@@ -554,7 +562,7 @@ def fes_html_gen(all_prefix):
 	#html_code += "<br />"
 	html_code += "<br />"
 	html_code += "<body><font size=\"4\" face=\"arial\">NDN Testbed Snapshot:"+out+"</font>"
-	html_code += "<br />(Status updates every 5 minutes)<br />"
+	html_code += "<br />(Status updates every 10 minutes)<br />"
 	html_code += "<br />(Only the main site prefixes are shown)<br />"
 	html_code += gen_prefix_status_description()
 	
@@ -666,10 +674,14 @@ def fes_html_gen(all_prefix):
                                 if(j.get_stat()== "ONLINE"):
                                         print "NAME: " + j.get_name()
                                         start_time_secs = j.get_nlsr_start_time()
-                                        print "NLSR start_time_secs " + start_time_secs
+                                        print "NLSR start_time_secs >" + start_time_secs + "<"
                                         node_time_secs = j.get_nlsr_current_time()
-                                        print "NLSR node_time_secs " + node_time_secs
-                                        elapsed_secs=int(node_time_secs)-int(start_time_secs)
+                                        print "NLSR node_time_secs >" + node_time_secs + "<"
+                                        #if ((node_time_secs == '' ) or (start_time_secs == '')):
+                                        if ((node_time_secs and start_time_secs ) and (len(node_time_secs) > 1) and (len(start_time_secs) > 1)):
+                                          elapsed_secs=int(node_time_secs)-int(start_time_secs)
+                                        else:
+                                          elapsed_secs=0
                                         print "NLSR elapsed_secs %d" % (elapsed_secs)
                                         elapsed_days=elapsed_secs/(60*60*24)
                                         remaining_secs=elapsed_secs - (elapsed_days * 60*60*24)
@@ -834,7 +846,7 @@ def fes_html_gen(all_prefix):
 
 		#table_skeleton[i] should have the same length as config.node_url
 		for j in range(0, len(config.node_url)):
-			print "i,j " + str(i) + " " + str(j)
+			#print "i,j " + str(i) + " " + str(j)
 			if(i == (Node_Name_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
@@ -887,7 +899,7 @@ def fes_html_gen(all_prefix):
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (Current_Time_row -1)):
-                                print "checking table_skeleton[i][j] to RED" ,  i,j
+                                #print "checking table_skeleton[i][j] to RED" ,  i,j
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:

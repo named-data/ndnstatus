@@ -78,7 +78,7 @@ class Nentry:
 def get_node_info(xml_string, uni_name, versions_filename):
         standard_ucla_time=""
         #print "get_node_info() uni_name " + uni_name
-        print "get_node_info() uni_name " + uni_name + " versions_filename " + versions_filename
+        #print "get_node_info() uni_name " + uni_name + " versions_filename " + versions_filename
 	nlsr_version = ""
 	ndn_cxx_version = ""
 	chronosync_version = ""
@@ -99,7 +99,7 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	#if nothing is in out, then return
 	
 	if(len(xml_string) == 0):
-                print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
+                #print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
 		return Nentry(uni_name, "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "OFFLINE")
 	try:
 		xml = parseString(xml_string)
@@ -108,7 +108,7 @@ def get_node_info(xml_string, uni_name, versions_filename):
                 print "  xml_string: " + xml_string
 		return Nentry(uni_name, "", "", "", "", "", "", "",  machine_time, "", "", "","", "",  "OFFLINE")
 
-        #print "found " + uni_name
+        print "found " + uni_name
         #print "xml_string: " + xml_string
 	if(re.search(">[^<]*<", xml.getElementsByTagName("version")[0].toxml()) != None):
 	        nfd_version = re.search(">[^<]*<", xml.getElementsByTagName("version")[0].toxml()).group(0)[1:-1]

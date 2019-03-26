@@ -13,3 +13,6 @@ cp -p ../../ndnmap/WebServer/gmap/json/*.json .
 ./NDN_nx.py
 sudo cp topology.png /var/www/html/
 
+#./processGeocodeJson.py geocode.json testbedNodes.json >& processGeocodeJson.log
+#chmod 644 testbedNodes.json
+#sudo cp testbedNodes.json /var/www/html/
