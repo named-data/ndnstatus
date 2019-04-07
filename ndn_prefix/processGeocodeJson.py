@@ -26,7 +26,7 @@ def process():
 
   for k,v in data.items():
     # Test for ndn up with ndnping
-    print k
+    #print k
     if v["https"] == "https://0.0.0.0:443/" :
       #print "skipping"
       continue

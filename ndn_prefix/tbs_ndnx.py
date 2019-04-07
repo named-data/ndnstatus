@@ -497,6 +497,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (November 1, 2018) status: We are having some serious problems with the new build of NLSR. Expect Testbed nodes to be up and down a lot while we test and debug. <br></font>
 <font size="3" face="arial">Notes on current (March 11, 2019) status: We are upgrading NDN Testbed nodes to latest release of NFD and NLSR. This includes NLSR changes that are incompatible with previous version so things will be disjoint as they get updated. <br></font>
 <font size="3" face="arial">Notes on current (March 13, 2019) status: A bunch of site certs need updating. Things will be bumpy for a while today.. <br></font>
+<font size="3" face="arial">Notes on current (April 7, 2019) status: We will be removing some long dormant sites. <br></font>
 <br>
 
 """

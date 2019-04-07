@@ -48,8 +48,9 @@ def process_nodes():
       foundPosition = True
     #print "process_nodes(): checking founds"
     if foundShortName == True and foundPosition == True :
-      nodes_with_positions[shortName] = (x,y)
-      #print "processed node: ", shortName, "with position: x: ", x, "y: ", y
+      if shortName.startswith( 'AWS-' ) == False:
+        nodes_with_positions[shortName] = (x,y)
+        print "processed node: ", shortName, "with position: x: ", x, "y: ", y
       foundShortName = False
       foundPosition = False
     line = f.readline()
@@ -207,7 +208,6 @@ def NDN_graph():
         if node == "CNIC":
           y = y + 0
           x = x - 2
-
         #if node == "PKU":
         #  x = x -3
         G.add_node(node)
@@ -233,19 +233,20 @@ if __name__ == '__main__':
     #print("digraph has %d nodes with %d edges"\
     #      %(nx.number_of_nodes(G),nx.number_of_edges(G)))
     graphLabel = "NDN Testbed ("
-    graphLabel += str(nx.number_of_nodes(G))
+    #graphLabel += str(nx.number_of_nodes(G) - 13)
+    graphLabel += str(nx.number_of_nodes(G) )
     graphLabel += " nodes, "
     graphLabel += str(nx.number_of_edges(G))
     graphLabel += " links with NLSR costs) "
-    #print graphLabel
+    print graphLabel
     try:
         #print "about to plt.figure"
         plt.figure(figsize=(28,14))
         plt.title(graphLabel, fontsize=24)
-        #print "about to nx.draw"
+        print "about to nx.draw"
         #nx.draw(G,G.position, with_labels=True)
         nx.draw(G,G.position, node_size=1000, with_labels=True)
-        #print "about to nx.draw_networkx_edge_labels"
+        print "about to nx.draw_networkx_edge_labels"
         nx.draw_networkx_edge_labels(G,G.position, edge_labels=G.edge_labels)
 
         # scale the axes 
