@@ -12,6 +12,9 @@ sudo cp tbs_ndnx.html /var/www/html/ndn.html
 cp -p ../../ndnmap/WebServer/gmap/json/*.json .
 ./NDN_nx.py
 sudo cp topology.png /var/www/html/
+sudo mkdir -p /var/www/html/json
+sudo cp ../../ndnmap/WebServer/gmap/json/*.json /var/www/html/json
+
 
 #./processGeocodeJson.py geocode.json testbedNodes.json >& processGeocodeJson.log
 #chmod 644 testbedNodes.json

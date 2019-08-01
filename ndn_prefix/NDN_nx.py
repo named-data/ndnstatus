@@ -50,7 +50,7 @@ def process_nodes():
     if foundShortName == True and foundPosition == True :
       if shortName.startswith( 'AWS-' ) == False:
         nodes_with_positions[shortName] = (x,y)
-        print "processed node: ", shortName, "with position: x: ", x, "y: ", y
+        #print "processed node: ", shortName, "with position: x: ", x, "y: ", y
       foundShortName = False
       foundPosition = False
     line = f.readline()
@@ -243,10 +243,10 @@ if __name__ == '__main__':
         #print "about to plt.figure"
         plt.figure(figsize=(28,14))
         plt.title(graphLabel, fontsize=24)
-        print "about to nx.draw"
+        #print "about to nx.draw"
         #nx.draw(G,G.position, with_labels=True)
-        nx.draw(G,G.position, node_size=1000, with_labels=True)
-        print "about to nx.draw_networkx_edge_labels"
+        nx.draw_networkx(G,G.position, node_size=1000, with_labels=True)
+        #print "about to nx.draw_networkx_edge_labels"
         nx.draw_networkx_edge_labels(G,G.position, edge_labels=G.edge_labels)
 
         # scale the axes 
