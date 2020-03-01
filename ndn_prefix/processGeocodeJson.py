@@ -30,12 +30,23 @@ def process():
     if v["https"] == "https://0.0.0.0:443/" :
       #print "skipping"
       continue
-    exit_code = subprocess.call(["/usr/bin/ndnping", "-i", "500", "-c", "3", v["prefix"]],stdout=devnull, stdin=None, stderr=devnull)
+    #exit_code = subprocess.call(["/usr/bin/ndnping", "-i", "500", "-c", "3", v["prefix"]],stdout=devnull, stdin=None, stderr=devnull)
+    #exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "1", v["prefix"]],stdout=devnull, stdin=None, stderr=devnull)
+    exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "1", v["prefix"]],stdin=None)
     if exit_code == 0:
       #print "exit_code == 0 set ndn-up True"
       v["ndn-up"] = True
     else:
-      v["ndn-up"] = False
+      # try again
+      exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "1", v["prefix"]],stdin=None)
+      if exit_code == 0:
+        v["ndn-up"] = True
+      else:
+        exit_code = subprocess.call(["/usr/bin/ndnping", "-c", "1", v["prefix"]],stdin=None)
+        if exit_code == 0:
+          v["ndn-up"] = True
+        else:
+          v["ndn-up"] = False
       #print "exit_code != 0 set ndn-up False"
     # test for ws-tls update using curl
     # curl --connect-timeout 2 https://wundngw.arl.wustl.edu:443/ws

@@ -167,7 +167,7 @@ def is_testbed_prefix(prefix):
 	#	return False
 	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.ca)|(\.cn)|(\.es)|(\.ch)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.ca)|(\.cn)|(\.es)|(\.ch)|(\.uk)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
                 print "is_testbed_prefix( TRUE )"
 		return True
@@ -185,7 +185,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -196,7 +196,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -427,7 +427,7 @@ def get_valid_prefixes(domain_name, xml_string):
 			continue
 		#if the prefix represents the current node, i.e
 		#it has the domain of domain_name, then it's valid
-                #print "checking for prefix representing current node. domain_name: " + domain_name + " fprefix: " + fprefix + " get_domain(fprefix): " + get_domain(fprefix)
+                print "checking for prefix representing current node. domain_name: " + domain_name + " fprefix: " + fprefix + " get_domain(fprefix): " + get_domain(fprefix)
 		if(get_domain(ndnfprefix) == domain_name):
                         #if (domain_name == "edu/ucla"):
                         #print "adding to valid list, fprefix for our domain: " + fprefix
@@ -551,9 +551,9 @@ def fes_html_gen(all_prefix):
         html_code += "\n"
         html_code += "<DT> <A HREF=\"http://ndnmap.arl.wustl.edu/\">NDN Bandwidth Map (currently nonfunctional)</A>"
         html_code += "\n"
-	html_code += "<br />"
-        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs </A>"
-        html_code += "\n"
+	#html_code += "<br />"
+        #html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs </A>"
+        #html_code += "\n"
 	html_code += "<br />"
         html_code += "<DT> <A HREF=\"http://netlab.cs.memphis.edu/script/htm/ndn-status/status.htm\">NDN Routing</A>"
         html_code += "\n"

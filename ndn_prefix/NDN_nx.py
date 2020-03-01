@@ -186,7 +186,7 @@ def NDN_graph():
         if node == "UASLP":
           y = y + 8.5
           #x = x - 3
-        if node == "UFPA":
+        if node == "UFBA":
           y = y + 36.5
           x = x - 3
         if node == "AAU":
@@ -208,6 +208,8 @@ def NDN_graph():
         if node == "CNIC":
           y = y + 0
           x = x - 2
+        if node == "QUB":
+          y = y - 3
         #if node == "PKU":
         #  x = x -3
         G.add_node(node)
