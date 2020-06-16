@@ -141,6 +141,9 @@ def NDN_graph():
           y = y +0.5
         if node == "CAIDA":
           x = x -5
+        if node == "UCLA2":
+          y = y +1.5
+          x = x + 1.5
         if node == "UCLA":
           y = y +1
           x = x -1

@@ -427,7 +427,7 @@ def get_valid_prefixes(domain_name, xml_string):
 			continue
 		#if the prefix represents the current node, i.e
 		#it has the domain of domain_name, then it's valid
-                print "checking for prefix representing current node. domain_name: " + domain_name + " fprefix: " + fprefix + " get_domain(fprefix): " + get_domain(fprefix)
+                #print "checking for prefix representing current node. domain_name: " + domain_name + " fprefix: " + fprefix + " get_domain(fprefix): " + get_domain(fprefix)
 		if(get_domain(ndnfprefix) == domain_name):
                         #if (domain_name == "edu/ucla"):
                         #print "adding to valid list, fprefix for our domain: " + fprefix
@@ -514,14 +514,16 @@ def fes_html_gen(all_prefix):
         ndn_cxx_Version_row = 4
         NLSR_Version_row = 5
         ChronoSync_Version_row = 6
-        NFD_Uptime_row = 7
-        NLSR_Uptime_row = 8
-        TLS_Expiry_row = 9
-        Current_Time_row = 10
+        PSync_Version_row = 7
+        NFD_Uptime_row = 8
+        NLSR_Uptime_row = 9
+        TLS_Expiry_row = 10
+        SiteCert_Expiry_row = 11
+        Current_Time_row = 12
         #UTC_NLSR_StartTime_row = 10
         #UTC_Current_NLSR_Time_row = 11
         #Clock_Skew_row = 12
-        Clock_Skew_row = 11
+        Clock_Skew_row = 13
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
 	#list of node objects
@@ -530,7 +532,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -556,6 +558,15 @@ def fes_html_gen(all_prefix):
         #html_code += "\n"
 	html_code += "<br />"
         html_code += "<DT> <A HREF=\"http://netlab.cs.memphis.edu/script/htm/ndn-status/status.htm\">NDN Routing</A>"
+        html_code += "\n"
+	html_code += "<br />"
+	html_code += "<br />"
+        html_code += "<DT> <A HREF=\"https://nlsr-status.netlify.com/\">Alternate NDN Routing</A>"
+        html_code += "\n"
+	html_code += "<br />"
+	html_code += "<br />"
+	html_code += "<br />"
+        html_code += "<DT> <A HREF=\"https://ivisa.named-data.net/testbed_map/\">Chavoosh's Node Status map</A>"
         html_code += "\n"
 	html_code += "<br />"
         #html_code += "<DT> <A HREF=\"http://ether.remap.ucla.edu/anmol/proxystatus.html\">NDN Proxies</A>"
@@ -632,6 +643,11 @@ def fes_html_gen(all_prefix):
 				else:
 					table_skeleton[ChronoSync_Version_row-1].append(4) #&nbsp;
 				#table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
+			if(i == (PSync_Version_row - 2)):
+				if(j.get_stat()== "ONLINE"):
+					table_skeleton[PSync_Version_row-1].append(j.get_psync_version())
+				else:
+					table_skeleton[PSync_Version_row-1].append(4) #&nbsp;
 			#row 3 NFD Up Time
 			if(i == (NFD_Uptime_row - 2)):
 				if(j.get_stat()== "ONLINE"):
@@ -724,6 +740,11 @@ def fes_html_gen(all_prefix):
 					table_skeleton[TLS_Expiry_row-1].append(j.get_tls_expiry())
 				else:
 					table_skeleton[TLS_Expiry_row-1].append(4) #&nbsp;
+			if(i == (SiteCert_Expiry_row - 2)):
+				if(j.get_stat()== "ONLINE"):
+					table_skeleton[SiteCert_Expiry_row-1].append(j.get_sitecert_expiry())
+				else:
+					table_skeleton[SiteCert_Expiry_row-1].append(4) #&nbsp;
 			if(i == (Current_Time_row - 2)):
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[Current_Time_row - 1].append(j.get_node_time())
@@ -824,11 +845,15 @@ def fes_html_gen(all_prefix):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == ChronoSync_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == PSync_Version_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NFD_Uptime_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NLSR_Uptime_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == TLS_Expiry_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == SiteCert_Expiry_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == Current_Time_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
@@ -884,6 +909,11 @@ def fes_html_gen(all_prefix):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (PSync_Version_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (NFD_Uptime_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
@@ -898,6 +928,13 @@ def fes_html_gen(all_prefix):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (SiteCert_Expiry_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					#html_code += "<td bgcolor =\""+cell_content[0]+"\">"+cell_content[4]+"</td>\n"
+					#html_code += "<td bgcolor =\"#7CFC00\"><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (Current_Time_row -1)):
                                 #print "checking table_skeleton[i][j] to RED" ,  i,j
