@@ -61,6 +61,19 @@ def process():
     #print "https: ", v["https"]
     #print k , v
     #print node["shortname"], " - ", node["site"], " - ", node["ndn-up"]
+    neighborFilename = "/home/jdd/WU-ARL/ndnstatus/ndn_prefix/NDN_Ansible/roles/node_link_db_gen/files/json_files/"  + k +"_links.json"
+    ndata = open(neighborFilename)
+    neighbordata = json.load(ndata)
+    for kk,vv in neighbordata.items():
+      #v["neighbors"] = vv["neighborlist"]
+      print v["neighbors"] 
+      #print vv["neighborlist"]
+      print str(vv)
+      #v["neighbors"] = str(vv)
+      v["neighbors"] = eval(json.dumps(vv))
+      print v["neighbors"] 
+    ndata.close()
+    #print neighborFilename
   
   jdata.close()
   #with open("jsondump.json", "w") as outfile:

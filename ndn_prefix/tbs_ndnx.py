@@ -498,6 +498,7 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (March 11, 2019) status: We are upgrading NDN Testbed nodes to latest release of NFD and NLSR. This includes NLSR changes that are incompatible with previous version so things will be disjoint as they get updated. <br></font>
 <font size="3" face="arial">Notes on current (March 13, 2019) status: A bunch of site certs need updating. Things will be bumpy for a while today.. <br></font>
 <font size="3" face="arial">Notes on current (April 7, 2019) status: We will be removing some long dormant sites. <br></font>
+<font size="3" face="arial">Notes on current (June 16, 2020) status: A 'New NFD Status' line has been added. . <br></font>
 <br>
 
 """
@@ -509,21 +510,22 @@ def gen_prefix_status_description():
 #list of unique prefix, list of lists, each list represents list of prefixes for a node
 def fes_html_gen(all_prefix):
 	Node_Name_row = 1
-        OS_Version_row = 2
-        NFD_Version_row = 3
-        ndn_cxx_Version_row = 4
-        NLSR_Version_row = 5
-        ChronoSync_Version_row = 6
-        PSync_Version_row = 7
-        NFD_Uptime_row = 8
-        NLSR_Uptime_row = 9
-        TLS_Expiry_row = 10
-        SiteCert_Expiry_row = 11
-        Current_Time_row = 12
+        New_Status_row = 2
+        OS_Version_row = 3
+        NFD_Version_row = 4
+        ndn_cxx_Version_row = 5
+        NLSR_Version_row = 6
+        ChronoSync_Version_row = 7
+        PSync_Version_row = 8
+        NFD_Uptime_row = 9
+        NLSR_Uptime_row = 10
+        TLS_Expiry_row = 11
+        SiteCert_Expiry_row = 12
+        Current_Time_row = 13
         #UTC_NLSR_StartTime_row = 10
         #UTC_Current_NLSR_Time_row = 11
         #Clock_Skew_row = 12
-        Clock_Skew_row = 13
+        Clock_Skew_row = 14
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
 	#list of node objects
@@ -532,7 +534,7 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["New NFD Status", "OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -557,11 +559,7 @@ def fes_html_gen(all_prefix):
         #html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/cacti/\">NDN Testbed Cacti graphs </A>"
         #html_code += "\n"
 	html_code += "<br />"
-        html_code += "<DT> <A HREF=\"http://netlab.cs.memphis.edu/script/htm/ndn-status/status.htm\">NDN Routing</A>"
-        html_code += "\n"
-	html_code += "<br />"
-	html_code += "<br />"
-        html_code += "<DT> <A HREF=\"https://nlsr-status.netlify.com/\">Alternate NDN Routing</A>"
+        html_code += "<DT> <A HREF=\"https://nlsr-status.ndn.today/\">NDN Routing (NLSR Status)</A>"
         html_code += "\n"
 	html_code += "<br />"
 	html_code += "<br />"
@@ -608,6 +606,14 @@ def fes_html_gen(all_prefix):
                         print "Marking a node as OFFLINE" 
 			table_skeleton[Node_Name_row-1].append(0) #offline
 			offline_nodes.append(i)
+
+	for i in range(0, len(config.node_url)):
+		if(node_list[i].get_stat() == "ONLINE"):
+			table_skeleton[New_Status_row-1].append(1) #online
+		else:
+                        print "Marking a node as OFFLINE" 
+			table_skeleton[New_Status_row-1].append(0) #offline
+			#offline_nodes.append(i)
 
 	#generate rows 2,3,4,5: API number, start time, current time and clock skew respectively. Done in row major order (horizontally).
 	for i in range(0, len(info_list)):
@@ -835,6 +841,8 @@ def fes_html_gen(all_prefix):
 	for i in range(0, len(table_skeleton)):
 		if(i == Node_Name_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == New_Status_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == OS_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NFD_Version_row):
@@ -876,13 +884,17 @@ def fes_html_gen(all_prefix):
 			if(i == (Node_Name_row -1)):
 				if(table_skeleton[i][j] == 1):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
-					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 					html_code += config.node_url[j][0][:-1]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 				elif(table_skeleton[i][j] == 0):
 					html_code += "<td width = 70px; bgcolor =\""+cell_content[0]+"\"><a href = \""
-					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
 					html_code += config.node_url[j][0][:-1]+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
-					#html_code += config.node_url[j][0][:-7]+"\" target=\"_blank\">"+config.node_url[j][2]+"</td>\n"
+			elif(i == (New_Status_row -1)):
+				if(table_skeleton[i][j] == 1):
+					html_code += "<td width = 70px; bgcolor =\""+cell_content[1]+"\"><a href = \""
+					html_code += config.node_url[j][0][:-1]+"/n/"+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
+				elif(table_skeleton[i][j] == 0):
+					html_code += "<td width = 70px; bgcolor =\""+cell_content[0]+"\"><a href = \""
+					html_code += config.node_url[j][0][:-1]+"/n/"+"\" target=\"_blank\">"+"<font size=\"2\">"+config.node_url[j][2]+"</td>"+"</font>\n"
                         #Version
 			elif(i == (OS_Version_row -1)):
 				if(table_skeleton[i][j] == 4):

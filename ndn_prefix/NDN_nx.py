@@ -141,12 +141,12 @@ def NDN_graph():
           y = y +0.5
         if node == "CAIDA":
           x = x -5
-        if node == "UCLA2":
+        if node == "UCLACS":
           y = y +1.5
           x = x + 1.5
         if node == "UCLA":
           y = y +1
-          x = x -1
+          x = x +2
         if node == "REMAP":
           y = y +1
           x = x +1
@@ -154,9 +154,9 @@ def NDN_graph():
           x = x -1
         #if node == "VERISIGN":
         #  y = y -1
-        if node == "NTNU":
-          y = y - 12.6
-          x = x - 5.0
+        #if node == "NTNU":
+        #  y = y - 12.6
+        #  x = x - 5.0
         if node == "COPELABS":
           y = y - 0.5
           x = x + 4
@@ -172,9 +172,9 @@ def NDN_graph():
         if node == "MINHO":
           y = y - 0.5
           x = x - 3
-        if node == "NIST":
-          x = x + 8
-          y = y - 0.25
+        #if node == "NIST":
+        #  x = x + 8
+        #  y = y - 0.25
         if node == "MSU":
           y = y + 16.25
           x = x - 4
@@ -192,9 +192,9 @@ def NDN_graph():
         if node == "UFBA":
           y = y + 36.5
           x = x - 3
-        if node == "AAU":
-          x = x - 1
-          y = y + 1.3
+        #if node == "AAU":
+        #  x = x - 1
+        #  y = y + 1.3
         if node == "UNIVH2C":
           x = x - 2.5
           y = y + 1.3
@@ -220,17 +220,20 @@ def NDN_graph():
         #print "Adding node: >", node, "< with position: ", x, ",", y
         #print "Adding node: >", node, "< with position: ", G.position[node]
 
+    #print "about to add edges"
     for (n1,n2),l in edges_with_labels.iteritems():
         G.add_edge(n1,n2)
         #print "Adding edge: >", n1, "< >", n2, "< ", l
         G.edge_labels[(n1,n2)] = l
 
+    #print "done adding edges"
     return G            
 
 if __name__ == '__main__':
     import networkx as nx
 
     G=NDN_graph()
+    #print "after NDN_graph"
 
     #for n in G.nodes():
     #   print "node n:", n
@@ -248,10 +251,10 @@ if __name__ == '__main__':
         #print "about to plt.figure"
         plt.figure(figsize=(28,14))
         plt.title(graphLabel, fontsize=24)
-        #print "about to nx.draw"
+        print "about to nx.draw"
         #nx.draw(G,G.position, with_labels=True)
         nx.draw_networkx(G,G.position, node_size=1000, with_labels=True)
-        #print "about to nx.draw_networkx_edge_labels"
+        print "about to nx.draw_networkx_edge_labels"
         nx.draw_networkx_edge_labels(G,G.position, edge_labels=G.edge_labels)
 
         # scale the axes 

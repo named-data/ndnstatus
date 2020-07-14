@@ -1,7 +1,7 @@
 # Nodes
 #n(http://ndn-itec.aau.at:80/, at/aau, AAU, ndn:/ndn/at/aau)
 n(https://ndn.qub.ac.uk:443/, uk/ac/qub, QUB, ndn:/ndn/uk/ac/qub)
-n(https://ndn-itec.aau.at:443/, at/aau, AAU, ndn:/ndn/at/aau)
+#n(https://ndn-itec.aau.at:443/, at/aau, AAU, ndn:/ndn/at/aau)
 n(https://93-42-157-82.ip87.fastwebnet.it:443/, it/afasystems, AFA, ndn:/ndn/it/afasystems)
 n(https://anyang.testbed.named-data.net:443/, kr/anyang, ANYANG, ndn:/ndn/kr/anyang)
 n(https://hobo.cs.arizona.edu:443/, edu/arizona, ARIZONA, ndn:/ndn/edu/arizona)
