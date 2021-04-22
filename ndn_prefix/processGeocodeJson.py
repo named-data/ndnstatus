@@ -26,7 +26,7 @@ def process():
 
   for k,v in data.items():
     # Test for ndn up with ndnping
-    #print k
+    print k
     if v["https"] == "https://0.0.0.0:443/" :
       #print "skipping"
       continue
@@ -52,16 +52,17 @@ def process():
     # curl --connect-timeout 2 https://wundngw.arl.wustl.edu:443/ws
     exit_code = subprocess.call(["/usr/bin/curl", "--connect-timeout", "2", v["https"]+"/ws"],stdout=devnull, stdin=None, stderr=devnull)
     if exit_code == 0:
-      #print "exit_code == 0 set ws-tls True"
+      print "exit_code == 0 set ws-tls True"
       v["ws-tls"] = True
     else:
       v["ws-tls"] = False
-      #print "exit_code != 0 set ws-tls False"
-    #print "prefix: ", v["prefix"]
-    #print "https: ", v["https"]
-    #print k , v
+      print "exit_code != 0 set ws-tls False"
+    print "prefix: ", v["prefix"]
+    print "https: ", v["https"]
+    print k , v
     #print node["shortname"], " - ", node["site"], " - ", node["ndn-up"]
     neighborFilename = "/home/jdd/WU-ARL/ndnstatus/ndn_prefix/NDN_Ansible/roles/node_link_db_gen/files/json_files/"  + k +"_links.json"
+    print neighborFilename
     ndata = open(neighborFilename)
     neighbordata = json.load(ndata)
     for kk,vv in neighbordata.items():
