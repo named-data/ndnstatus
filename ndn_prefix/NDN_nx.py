@@ -157,6 +157,10 @@ def NDN_graph():
         #if node == "NTNU":
         #  y = y - 12.6
         #  x = x - 5.0
+        if node == "MML1":
+          x = x - 60
+        if node == "MML2":
+          x = x - 60
         if node == "COPELABS":
           y = y - 0.5
           x = x + 4
@@ -171,6 +175,9 @@ def NDN_graph():
           x = x + 7
         if node == "MINHO":
           y = y - 0.5
+          x = x - 3
+        if node == "SAVI":
+          y = y + 1.0
           x = x - 3
         #if node == "NIST":
         #  x = x + 8
@@ -261,6 +268,9 @@ if __name__ == '__main__':
         plt.xlim(-130,5)
         #plt.ylim(-90,90)
         plt.ylim(30,53)
+
+        plt.xticks([])
+        plt.yticks([])
 
         plt.savefig("topology.png")
     except:
