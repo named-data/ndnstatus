@@ -167,7 +167,7 @@ def is_testbed_prefix(prefix):
 	#	return False
 	#if(re.search("(/ndn/edu/ucla/%40GUEST\.*)", prefix) != None):
 	#	return False
-	if(re.search("(\.edu)|(\.org)|(\.com)|(\.ca)|(\.cn)|(\.es)|(\.ch)|(\.uk)|(\.de)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
+	if(re.search("(\.edu)|(\.org)|(\.com)|(\.ca)|(\.cn)|(\.es)|(\.ch)|(\.uk)|(\.de)|(\.in)|(\.fr)|(\.id)|(\.br)|(\.mx)|(\.at)|(\.jp)|(\.ma)|(\.nl)|(\.th)|(\.gov)|(\.no)|(\.kr)|(\.it)|(\.pt)|(\.aws)", prefix) != None):
 		config.valid_prefix[prefix] = get_domain(prefix)
                 print "is_testbed_prefix( TRUE )"
 		return True
@@ -185,7 +185,7 @@ def get_domain(prefix):
         #        print "get_domain(" + prefix + ") returning false: "
 	#	return "" #eval to false
 
-	if(re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws))", prefix) == None):
+	if(re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(de)|(kr)|(it)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(in)|(fr)|(pt)|(aws))", prefix) == None):
                 #print "get_domain(" + prefix + ") returning false: "
 		return "" #eval to false
 
@@ -196,7 +196,7 @@ def get_domain(prefix):
 	#removes ndn:/
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[6:]
 	#prime = re.search("ndn:/.*((\.edu)|(\.org)|(\.com)|(\.cn)|(\.uk))", prefix).group(0)[5:]
-	prime = re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
+	prime = re.search("ndn:/.*((edu)|(org)|(com)|(ca)|(cn)|(es)|(ch)|(uk)|(no)|(kr)|(it)|(de)|(id)|(br)|(mx)|(at)|(jp)|(ma)|(nl)|(th)|(gov)|(in)|(fr)|(pt)|(aws)).*", prefix).group(0)[5:]
         #print "get_domain(" + prefix + ") prime: " + prime
 	#removes ndn/
 	dprime = re.search("ndn/.*", prime)
@@ -225,12 +225,12 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 		#wget try once, time out after 5 seconds, quite(no output), background, specify output file
 		#use n(xml_link, domain, name abbr)'s name abbr as temp file name.
 		temp_filename = node_tuple[2]
-		p = subprocess.Popen(["wget","--no-check-certificate", "-t 2","-T 5","-q","-b","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
-                print "wget --no-check-certificate -t 2 -T 5 -q -b -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
+		p = subprocess.Popen(["wget","--no-check-certificate", "-t 2","-T 10","-q","-b","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
+                print "wget --no-check-certificate -t 2 -T 10 -q -b -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
 		#split_node_tuple0 = node_tuple[0].split("?") 
 		#versions_file = split_node_tuple0[0] + "/versions.txt"
 		#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
-		#q = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
+		#q = subprocess.Popen(["wget","-d","-t 2","-T 10","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
 	#wait for wait seconds for xml to come back
 	time.sleep(10)
 	for node_tuple in source_url:
@@ -247,8 +247,8 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
                                 xml_file.close()
 		                temp_filename = node_tuple[2]
                                 # wait a few seconds first?
-		                p = subprocess.Popen(["wget","-d","-t 2","-T 5","-q","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
-                                print "Second Attempt(foreground with debug): wget -d -t 2 -T 5 -q -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
+		                p = subprocess.Popen(["wget","-d","-t 2","-T 10","-q","-O",output_folder+temp_filename,node_tuple[0]], stdout=subprocess.PIPE)
+                                print "Second Attempt(foreground with debug): wget -d -t 2 -T 10 -q -O " + output_folder + temp_filename + " " + node_tuple[0] + " "
 	                        time.sleep(10)
 			        xml_file = open(output_folder+node_tuple[2],'r')
 			        for line in xml_file:
@@ -263,8 +263,8 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 				split_node_tuple0 = node_tuple[0].split("?") 
 				versions_file = split_node_tuple0[0] + "/versions.txt"
 				#print "attempting to wget " + versions_file + " and put it here " + versions_folder + temp_filename
-				p = subprocess.Popen(["wget","--no-check-certificate","-d","-t 2","-T 5","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
-                                print "wget --no-check-certificate -t 2 -T 5 -q -b -O " + versions_folder + temp_filename + " " + versions_file + " "
+				p = subprocess.Popen(["wget","--no-check-certificate","-d","-t 2","-T 10","-q","-O",versions_folder+temp_filename,versions_file], stdout=subprocess.PIPE)
+                                print "wget --no-check-certificate -t 2 -T 10 -q -b -O " + versions_folder + temp_filename + " " + versions_file + " "
 			master_xml_list.append(out)
 			versions_file_list.append(versions_folder+temp_filename)
 		except IOError as e:
@@ -277,7 +277,7 @@ def get_all_xml(source_url, output_folder, master_xml_list, wait):
 def get_fentry(xml_string):
 	#???global xml_list
 	fentry_list = []
-	#p = subprocess.Popen(["wget","-t 1","-T 5","-q","-O", "-",xml_link], stdout=subprocess.PIPE)
+	#p = subprocess.Popen(["wget","-t 1","-T 10","-q","-O", "-",xml_link], stdout=subprocess.PIPE)
 	#exec shell command and puts it to out
 	#out, err = p.communicate()
 	#append the xml obtained for future uses.
@@ -499,6 +499,10 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (March 13, 2019) status: A bunch of site certs need updating. Things will be bumpy for a while today.. <br></font>
 <font size="3" face="arial">Notes on current (April 7, 2019) status: We will be removing some long dormant sites. <br></font>
 <font size="3" face="arial">Notes on current (June 16, 2020) status: A 'New NFD Status' line has been added. . <br></font>
+<font size="3" face="arial">Notes on current (April 23, 2021) status: UCLACS (spurs.cs.ucla.edu) removed from Testbed. <br></font>
+<font size="3" face="arial">Notes on current (May 7, 2021) status: Added a link near the bottom of this page to a geographically accurate image of the Testbed topology. <br></font>
+<font size="3" face="arial">Notes on current (Nov 1, 2021) status: In an effort to stay more up to date, we are going to start experimenting with installing NDN packages from the nightly build repo supported by Junxiao. <br></font>
+<font size="3" face="arial">Notes on current (Nov 17, 2021) status: Having another go at this, this week: In an effort to stay more up to date, we are going to start experimenting with installing NDN packages from the nightly build repo supported by Junxiao. <br></font>
 <br>
 
 """
@@ -990,6 +994,10 @@ def fes_html_gen(all_prefix):
 	#html_code += "<div><input id=\"b4\" type=\"button\" value=\"Show Topology\" style=\"width: 250px\" onclick=\"changeTableStatus(this)\"/></div>"
 	#html_code += "\n<div id=\"topo\" class=\"hidden\">\n"
 	html_code += "<br />"
+	html_code += "<br />"
+	html_code += "<br />"
+        html_code += "<DT> <A HREF=\"http://ndndemo.arl.wustl.edu/topology2.png\">Click here for a Geographically accurate topology image</A>"
+        html_code += "\n"
 	html_code += "<br />"
 	#html_code += "<img border=\"0\" src=\"topology.png\" alt = \"testbed\" width=\"1600\" height=\"800\"/></div>\n"
 	html_code += "<img border=\"0\" src=\"topology.png\" alt = \"testbed\" width=\"2400\" height=\"1200\"/></div>\n"

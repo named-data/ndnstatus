@@ -185,6 +185,9 @@ def NDN_graph():
         if node == "MSU":
           y = y + 16.25
           x = x - 4
+        if node == "IIITH":
+          y = y + 18.5
+          x = x - 110
         if node == "MUMBAI_AWS":
           y = y + 16
           x = x - 120

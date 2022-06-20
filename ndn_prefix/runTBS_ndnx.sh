@@ -11,7 +11,10 @@ sudo cp tbs_ndnx.html /var/www/html/ndn.html
 # Reproduce the topology image:
 cp -p ../../ndnmap/WebServer/gmap/json/*.json .
 ./NDN_nx.py
+# run the one that uses real coordinates
+./NDN_nx_coord.py
 sudo cp topology.png /var/www/html/
+sudo cp topology2.png /var/www/html/
 sudo mkdir -p /var/www/html/json
 sudo cp ../../ndnmap/WebServer/gmap/json/*.json /var/www/html/json
 
