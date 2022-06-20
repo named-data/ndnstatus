@@ -1,0 +1,500 @@
+[
+    {
+        "id": 1,
+        "nlsr_weight": 14,
+        "start": "MICHIGAN",
+        "end": "NEU"
+    },
+    {
+        "id": 2,
+        "nlsr_weight": 12,
+        "start": "MICHIGAN",
+        "end": "MEMPHIS"
+    },
+    {
+        "id": 3,
+        "nlsr_weight": 5,
+        "start": "MICHIGAN",
+        "end": "UIUC"
+    },
+    {
+        "id": 9,
+        "nlsr_weight": 33,
+        "start": "WU",
+        "end": "ARIZONA"
+    },
+    {
+        "id": 12,
+        "nlsr_weight": 17,
+        "start": "ARIZONA",
+        "end": "MEMPHIS"
+    },
+    {
+        "id": 14,
+        "nlsr_weight": 9,
+        "start": "UIUC",
+        "end": "WU"
+    },
+    {
+        "id": 15,
+        "nlsr_weight": 17,
+        "start": "MEMPHIS",
+        "end": "WU"
+    },
+    {
+        "id": 16,
+        "nlsr_weight": 21,
+        "start": "MEMPHIS",
+        "end": "NEU"
+    },
+    {
+        "id": 32,
+        "nlsr_weight": 86,
+        "start": "URJC",
+        "end": "WU"
+    },
+    {
+        "id": 35,
+        "nlsr_weight": 9,
+        "start": "BASEL",
+        "end": "URJC"
+    },
+    {
+        "id": 39,
+        "nlsr_weight": 75,
+        "start": "ARIZONA",
+        "end": "WASEDA"
+    },
+    {
+        "id": 47,
+        "nlsr_weight": 22,
+        "start": "ANYANG",
+        "end": "WASEDA"
+    },
+    {
+        "id": 52,
+        "nlsr_weight": 80,
+        "start": "UIUC",
+        "end": "PADUA"
+    },
+    {
+        "id": 53,
+        "nlsr_weight": 9,
+        "start": "BASEL",
+        "end": "PADUA"
+    },
+    {
+        "id": 54,
+        "nlsr_weight": 15,
+        "start": "URJC",
+        "end": "PADUA"
+    },
+    {
+        "id": 68,
+        "nlsr_weight": 13,
+        "start": "COPELABS",
+        "end": "URJC"
+    },
+    {
+        "id": 69,
+        "nlsr_weight": 23,
+        "start": "COPELABS",
+        "end": "PADUA"
+    },
+    {
+        "id": 78,
+        "nlsr_weight": 5,
+        "start": "WASEDA",
+        "end": "OSAKA"
+    },
+    {
+        "id": 80,
+        "nlsr_weight": 36,
+        "start": "ANYANG",
+        "end": "OSAKA"
+    },
+    {
+        "id": 82,
+        "nlsr_weight": 4,
+        "start": "COPELABS",
+        "end": "MINHO"
+    },
+    {
+        "id": 83,
+        "nlsr_weight": 23,
+        "start": "BASEL",
+        "end": "MINHO"
+    },
+    {
+        "id": 84,
+        "nlsr_weight": 26,
+        "start": "PADUA",
+        "end": "MINHO"
+    },
+    {
+        "id": 85,
+        "nlsr_weight": 13,
+        "start": "URJC",
+        "end": "MINHO"
+    },
+    {
+        "id": 91,
+        "nlsr_weight": 145,
+        "start": "UFBA",
+        "end": "COPELABS"
+    },
+    {
+        "id": 92,
+        "nlsr_weight": 115,
+        "start": "UFBA",
+        "end": "MEMPHIS"
+    },
+    {
+        "id": 96,
+        "nlsr_weight": 13,
+        "start": "SRRU",
+        "end": "OSAKA"
+    },
+    {
+        "id": 98,
+        "nlsr_weight": 13,
+        "start": "SRRU",
+        "end": "ANYANG"
+    },
+    {
+        "id": 102,
+        "nlsr_weight": 38,
+        "start": "TNO",
+        "end": "BASEL"
+    },
+    {
+        "id": 103,
+        "nlsr_weight": 5,
+        "start": "SRRU",
+        "end": "MSU"
+    },
+    {
+        "id": 104,
+        "nlsr_weight": 150,
+        "start": "UCLA",
+        "end": "MSU"
+    },
+    {
+        "id": 105,
+        "nlsr_weight": 120,
+        "start": "TNO",
+        "end": "MSU"
+    },
+    {
+        "id": 106,
+        "nlsr_weight": 70,
+        "start": "ANYANG",
+        "end": "MSU"
+    },
+    {
+        "id": 117,
+        "nlsr_weight": 2,
+        "start": "BERN",
+        "end": "BASEL"
+    },
+    {
+        "id": 118,
+        "nlsr_weight": 15,
+        "start": "BERN",
+        "end": "AFA"
+    },
+    {
+        "id": 119,
+        "nlsr_weight": 36,
+        "start": "COPELABS",
+        "end": "AFA"
+    },
+    {
+        "id": 120,
+        "nlsr_weight": 11,
+        "start": "PADUA",
+        "end": "AFA"
+    },
+    {
+        "id": 121,
+        "nlsr_weight": 26,
+        "start": "MSU",
+        "end": "UUM"
+    },
+    {
+        "id": 122,
+        "nlsr_weight": 42,
+        "start": "SRRU",
+        "end": "UUM"
+    },
+    {
+        "id": 123,
+        "nlsr_weight": 72,
+        "start": "AFA",
+        "end": "IIITH"
+    },
+    {
+        "id": 125,
+        "nlsr_weight": 100,
+        "start": "OSAKA",
+        "end": "UUM"
+    },
+    {
+        "id": 127,
+        "nlsr_weight": 88,
+        "start": "UUM",
+        "end": "IIITH"
+    },
+    {
+        "id": 128,
+        "nlsr_weight": 100,
+        "start": "UASLP",
+        "end": "MEMPHIS"
+    },
+    {
+        "id": 129,
+        "nlsr_weight": 32,
+        "start": "UASLP",
+        "end": "ARIZONA"
+    },
+    {
+        "id": 130,
+        "nlsr_weight": 100,
+        "start": "UASLP",
+        "end": "UFBA"
+    },
+    {
+        "id": 136,
+        "nlsr_weight": 27,
+        "start": "MINHO",
+        "end": "CORUNA"
+    },
+    {
+        "id": 137,
+        "nlsr_weight": 17,
+        "start": "URJC",
+        "end": "CORUNA"
+    },
+    {
+        "id": 144,
+        "nlsr_weight": 2,
+        "start": "MINHO",
+        "end": "AVEIRO"
+    },
+    {
+        "id": 145,
+        "nlsr_weight": 4,
+        "start": "COPELABS",
+        "end": "AVEIRO"
+    },
+    {
+        "id": 147,
+        "nlsr_weight": 45,
+        "start": "AFA",
+        "end": "AVEIRO"
+    },
+    {
+        "id": 148,
+        "nlsr_weight": 50,
+        "start": "PADUA",
+        "end": "UNIVH2C"
+    },
+    {
+        "id": 149,
+        "nlsr_weight": 50,
+        "start": "COPELABS",
+        "end": "UNIVH2C"
+    },
+    {
+        "id": 151,
+        "nlsr_weight": 52,
+        "start": "URJC",
+        "end": "UNIVH2C"
+    },
+    {
+        "id": 152,
+        "nlsr_weight": 122,
+        "start": "WU",
+        "end": "IIITH"
+    },
+    {
+        "id": 155,
+        "nlsr_weight": 75,
+        "start": "WU",
+        "end": "AVEIRO"
+    },
+    {
+        "id": 156,
+        "nlsr_weight": 75,
+        "start": "WU",
+        "end": "UNIVH2C"
+    },
+    {
+        "id": 157,
+        "nlsr_weight": 65,
+        "start": "WU",
+        "end": "UFBA"
+    },
+    {
+        "id": 158,
+        "nlsr_weight": 125,
+        "start": "UNIVH2C",
+        "end": "UFBA"
+    },
+    {
+        "id": 159,
+        "nlsr_weight": 15,
+        "start": "AVEIRO",
+        "end": "URJC"
+    },
+    {
+        "id": 161,
+        "nlsr_weight": 15,
+        "start": "NEU",
+        "end": "SAVI"
+    },
+    {
+        "id": 162,
+        "nlsr_weight": 15,
+        "start": "MICHIGAN",
+        "end": "SAVI"
+    },
+    {
+        "id": 163,
+        "nlsr_weight": 40,
+        "start": "UCLA",
+        "end": "SAVI"
+    },
+    {
+        "id": 165,
+        "nlsr_weight": 18,
+        "start": "BERN",
+        "end": "LACL"
+    },
+    {
+        "id": 166,
+        "nlsr_weight": 50,
+        "start": "UNIVH2C",
+        "end": "LACL"
+    },
+    {
+        "id": 167,
+        "nlsr_weight": 60,
+        "start": "QUB",
+        "end": "WU"
+    },
+    {
+        "id": 168,
+        "nlsr_weight": 15,
+        "start": "QUB",
+        "end": "TNO"
+    },
+    {
+        "id": 170,
+        "nlsr_weight": 60,
+        "start": "QUB",
+        "end": "NEU"
+    },
+    {
+        "id": 171,
+        "nlsr_weight": 25,
+        "start": "UCLA",
+        "end": "ARIZONA"
+    },
+    {
+        "id": 172,
+        "nlsr_weight": 30,
+        "start": "UCLA",
+        "end": "WU"
+    },
+    {
+        "id": 177,
+        "nlsr_weight": 100,
+        "start": "ANYANG",
+        "end": "UCLA"
+    },
+    {
+        "id": 178,
+        "nlsr_weight": 100,
+        "start": "OSAKA",
+        "end": "ARIZONA"
+    },
+    {
+        "id": 179,
+        "nlsr_weight": 60,
+        "start": "BERN",
+        "end": "WU"
+    },
+    {
+        "id": 180,
+        "nlsr_weight": 80,
+        "start": "CORUNA",
+        "end": "WU"
+    },
+    {
+        "id": 183,
+        "nlsr_weight": 18,
+        "start": "MEMPHIS",
+        "end": "SRRU"
+    },
+    {
+        "id": 184,
+        "nlsr_weight": 80,
+        "start": "MEMPHIS",
+        "end": "MML1"
+    },
+    {
+        "id": 185,
+        "nlsr_weight": 75,
+        "start": "WU",
+        "end": "MML1"
+    },
+    {
+        "id": 187,
+        "nlsr_weight": 25,
+        "start": "TNO",
+        "end": "MML2"
+    },
+    {
+        "id": 188,
+        "nlsr_weight": 2,
+        "start": "TNO",
+        "end": "DELFT"
+    },
+    {
+        "id": 189,
+        "nlsr_weight": 15,
+        "start": "QUB",
+        "end": "DELFT"
+    },
+    {
+        "id": 190,
+        "nlsr_weight": 26,
+        "start": "MML2",
+        "end": "DELFT"
+    },
+    {
+        "id": 191,
+        "nlsr_weight": 60,
+        "start": "WU",
+        "end": "DELFT"
+    },
+    {
+        "id": 192,
+        "nlsr_weight": 15,
+        "start": "PADUA",
+        "end": "DELFT"
+    },
+    {
+        "id": 193,
+        "nlsr_weight": 90,
+        "start": "URJC",
+        "end": "IIITH"
+    },
+    {
+        "id": 194,
+        "nlsr_weight": 90,
+        "start": "PADUA",
+        "end": "IIITH"
+    }
+]
