@@ -9,7 +9,7 @@ python tbs_ndnx.py >& tbs_ndnx.out
 
 sudo cp tbs_ndnx.html /var/www/html/ndn.html
 # Reproduce the topology image:
-cp -p ../../ndnmap/WebServer/gmap/json/*.json .
+#cp -p ../../ndnmap/WebServer/gmap/json/*.json .
 ./NDN_nx.py
 # run the one that uses real coordinates
 ./NDN_nx_coord.py

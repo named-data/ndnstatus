@@ -4,8 +4,8 @@
 DIR=/home/jdd/WU-ARL/ndnstatus/ndn_prefix
 
 cd $DIR
-cp -p ../../ndnmap/WebServer/gmap/json/geocode.json .
-cp -p ../../ndnmap/WebServer/gmap/json/links.json .
+#cp -p ../../ndnmap/WebServer/gmap/json/geocode.json .
+#cp -p ../../ndnmap/WebServer/gmap/json/links.json .
 
 mv testbedNodes.json testbedNodes.json.PREV
 mv processGeocodeJson.log  processGeocodeJson.log.PREV
