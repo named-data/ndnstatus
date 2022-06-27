@@ -503,6 +503,8 @@ def gen_prefix_status_description():
 <font size="3" face="arial">Notes on current (May 7, 2021) status: Added a link near the bottom of this page to a geographically accurate image of the Testbed topology. <br></font>
 <font size="3" face="arial">Notes on current (Nov 1, 2021) status: In an effort to stay more up to date, we are going to start experimenting with installing NDN packages from the nightly build repo supported by Junxiao. <br></font>
 <font size="3" face="arial">Notes on current (Nov 17, 2021) status: Having another go at this, this week: In an effort to stay more up to date, we are going to start experimenting with installing NDN packages from the nightly build repo supported by Junxiao. <br></font>
+<font size="3" face="arial">Notes on current (June 22, 2022) status: We are back to using packages from the PPA. <br></font>
+<font size="3" face="arial">Notes on current (June 22, 2022) status: We now have a new certificate authority (CA) running which includes a root CA and site CAs running on each node. The Site CAs manage the certs for that sites domain.. <br></font>
 <br>
 
 """
