@@ -521,16 +521,14 @@ def fes_html_gen(all_prefix):
         NFD_Version_row = 4
         ndn_cxx_Version_row = 5
         NLSR_Version_row = 6
-        ChronoSync_Version_row = 7
-        PSync_Version_row = 8
-        NFD_Uptime_row = 9
-        NLSR_Uptime_row = 10
+        #ChronoSync_Version_row = 7
+        PSync_Version_row = 7
+        NFD_Uptime_row = 8
+        NLSR_Uptime_row = 9
+        NDNCERT_SiteCA_Uptime_row = 10
         TLS_Expiry_row = 11
         SiteCert_Expiry_row = 12
         Current_Time_row = 13
-        #UTC_NLSR_StartTime_row = 10
-        #UTC_Current_NLSR_Time_row = 11
-        #Clock_Skew_row = 12
         Clock_Skew_row = 14
 	#a matrix that represents the table, html generation will be based on this matrix
 	table_skeleton = []
@@ -540,7 +538,8 @@ def fes_html_gen(all_prefix):
 	offline_nodes = []
 	#used for the loop generating rows 2,3 and 4
 	#info_list = ["Version", "Start Time (UTC) ", "Current Time (UTC)", "Clock Skew"]
-	info_list = ["New NFD Status", "OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
+	#info_list = ["New NFD Status", "OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "ChronoSync Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "site CA Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
+	info_list = ["New NFD Status", "OS Version", "NFD Version", "libndn-cxx Version", "NLSR Version", "PSync Version", "NFD Up Time ", "NLSR Up Time", "site CA Up Time", "TLS Expiry", "Site Cert Expiry", "Current Time (UTC)", "Clock Skew"]
 	#red, green, yellow, gray, empty space
 	cell_content = ["#FF0000", "#7CFC00", "#FFFF00", "#C0C0C0", "&nbsp;"]
 	#get time of this script generation
@@ -621,6 +620,7 @@ def fes_html_gen(all_prefix):
 
 	#generate rows 2,3,4,5: API number, start time, current time and clock skew respectively. Done in row major order (horizontally).
 	for i in range(0, len(info_list)):
+                print "top of info_list loop: i = ", + i
 		for j in node_list:
 			#row 2 NFD Version
 			#if(i == 0):
@@ -647,12 +647,12 @@ def fes_html_gen(all_prefix):
                                 else:
                                        table_skeleton[NLSR_Version_row-1].append(4) #&nbsp;
                                 #table_skeleton[NLSR_Version_row -1].append(4) #&nbsp;
-			if(i == (ChronoSync_Version_row - 2)):
-				if(j.get_stat()== "ONLINE"):
-					table_skeleton[ChronoSync_Version_row-1].append(j.get_chronosync_version())
-				else:
-					table_skeleton[ChronoSync_Version_row-1].append(4) #&nbsp;
-				#table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
+			#if(i == (ChronoSync_Version_row - 2)):
+			#	if(j.get_stat()== "ONLINE"):
+			#		table_skeleton[ChronoSync_Version_row-1].append(j.get_chronosync_version())
+			#	else:
+			#		table_skeleton[ChronoSync_Version_row-1].append(4) #&nbsp;
+			#	#table_skeleton[ChronoSync_Version_row -1].append(4) #&nbsp;
 			if(i == (PSync_Version_row - 2)):
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[PSync_Version_row-1].append(j.get_psync_version())
@@ -738,6 +738,39 @@ def fes_html_gen(all_prefix):
                                         #print "after j.get_start() table_skeleton[2] = " + str(table_skeleton[2])
                                 else:
                                         table_skeleton[NLSR_Uptime_row - 1].append(4) #&nbsp;
+                        if(i == (NDNCERT_SiteCA_Uptime_row - 2)):
+                                print "doing NDNCERT_SiteCA_Uptime_row"
+                                if(j.get_stat()== "ONLINE"):
+                                        print "NAME: " + j.get_name()
+                                        start_time_secs = j.get_ndncert_siteCA_start_time()
+                                        print "NDNCERT_siteCA start_time_secs >" + start_time_secs + "<"
+                                        node_time_secs = j.get_ndncert_siteCA_current_time()
+                                        print "NDNCERT_siteCA node_time_secs >" + node_time_secs + "<"
+                                        if ((node_time_secs and start_time_secs ) and (len(node_time_secs) > 1) and (len(start_time_secs) > 1)):
+                                          elapsed_secs=int(node_time_secs)-int(start_time_secs)
+                                        else:
+                                          elapsed_secs=0
+                                        print "NDNCERT_siteCA elapsed_secs %d" % (elapsed_secs)
+                                        elapsed_days=elapsed_secs/(60*60*24)
+                                        remaining_secs=elapsed_secs - (elapsed_days * 60*60*24)
+                                        elapsed_hours=remaining_secs/(60*60)
+                                        remaining_secs=remaining_secs - (elapsed_hours * 60*60)
+                                        elapsed_mins=remaining_secs/(60)
+                                        remaining_secs=remaining_secs - (elapsed_mins * 60)
+                                        if (elapsed_days > 1) :
+                                          up_time_str=" "+str(elapsed_days)+" days"
+                                        else:
+                                          if (elapsed_days > 0) :
+                                            up_time_str=" "+str(elapsed_days)+" day"
+                                          else:
+                                            if (elapsed_hours > 0) :
+                                              up_time_str=" "+str(elapsed_hours)+"h:"+str(elapsed_mins)+"m"
+                                            else:
+                                              up_time_str=" "+str(elapsed_mins)+"m:"+str(remaining_secs)+"s"
+                                        table_skeleton[NDNCERT_SiteCA_Uptime_row - 1].append(up_time_str)
+                                        print "up_time_str: " + up_time_str
+                                else:
+                                        table_skeleton[NDNCERT_SiteCA_Uptime_row - 1].append(4) #&nbsp;
                         #if(i == (NLSR_Uptime_row - 2)):
                         #        #if(j.get_stat()== "ONLINE"):
                         #        #       table_skeleton[1].append(j.get_nfd_version())
@@ -746,16 +779,19 @@ def fes_html_gen(all_prefix):
                         #        table_skeleton[NLSR_Uptime_row -1].append(4) #&nbsp;
 			#row 4 Current Time (UTC)
 			if(i == (TLS_Expiry_row - 2)):
+                                print "doing TLS_Expiry_row"
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[TLS_Expiry_row-1].append(j.get_tls_expiry())
 				else:
 					table_skeleton[TLS_Expiry_row-1].append(4) #&nbsp;
 			if(i == (SiteCert_Expiry_row - 2)):
+                                print "doing SiteCert_Expiry"
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[SiteCert_Expiry_row-1].append(j.get_sitecert_expiry())
 				else:
 					table_skeleton[SiteCert_Expiry_row-1].append(4) #&nbsp;
 			if(i == (Current_Time_row - 2)):
+                                print "doing Current_Time_row"
 				if(j.get_stat()== "ONLINE"):
 					table_skeleton[Current_Time_row - 1].append(j.get_node_time())
                                         #print "adding get_node_time() to table: " + j.get_node_time()
@@ -780,6 +816,7 @@ def fes_html_gen(all_prefix):
                         #                #print "NOT adding get_node_time() to table: " + j.get_node_time()
 			# Clock Skew
 			if(i == (Clock_Skew_row - 2)):
+                                print "doing Clock_Skew_row"
 				if(j.get_stat() == "ONLINE"):
                                         #print "calculating skew: machine_time: " + j.get_machine_time() 
                                         #print "calculating skew: standard_ucla_time: " + standard_ucla_time 
@@ -855,13 +892,15 @@ def fes_html_gen(all_prefix):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NLSR_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
-		elif(i == ChronoSync_Version_row):
-			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		#elif(i == ChronoSync_Version_row):
+		#	html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == PSync_Version_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NFD_Uptime_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == NLSR_Uptime_row):
+			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
+		elif(i == NDNCERT_SiteCA_Uptime_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
 		elif(i == TLS_Expiry_row):
 			html_code += "<tr>\n<td width = 180px;>"+"<font size=\"2\">"+info_list[i-1]+"</td>"+"</font>\n"
@@ -920,11 +959,11 @@ def fes_html_gen(all_prefix):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
-			elif(i == (ChronoSync_Version_row -1)):
-				if(table_skeleton[i][j] == 4):
-					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
-				else:
-					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			#elif(i == (ChronoSync_Version_row -1)):
+			#	if(table_skeleton[i][j] == 4):
+			#		html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+			#	else:
+			#		html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (PSync_Version_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
@@ -936,6 +975,11 @@ def fes_html_gen(all_prefix):
 				else:
 					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
 			elif(i == (NLSR_Uptime_row -1)):
+				if(table_skeleton[i][j] == 4):
+					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
+				else:
+					html_code += "<td><font size=\"2\">"+table_skeleton[i][j]+"</font></td>\n"
+			elif(i == (NDNCERT_SiteCA_Uptime_row -1)):
 				if(table_skeleton[i][j] == 4):
 					html_code += "<td><font size=\"2\">"+cell_content[4]+"</font></td>\n"
 				else:

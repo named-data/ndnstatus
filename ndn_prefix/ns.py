@@ -4,19 +4,24 @@ import iso8601
 from xml.dom.minidom import parse, parseString
 
 class Nentry:
-	def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, psync_version, tls_expiry, sitecert_expiry,os_version,start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, stat):
+	#def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, psync_version, tls_expiry, sitecert_expiry,os_version,start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, ndncert_siteCA_start_time, ndncert_siteCA_current_time, utc_current_ndncert_siteCA_time, utc_ndncert_siteCA_start_time, stat):
+	def __init__(self, name, nfd_version, nlsr_version, ndn_cxx_version, psync_version, tls_expiry, sitecert_expiry,os_version,start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, ndncert_siteCA_start_time, ndncert_siteCA_current_time, utc_current_ndncert_siteCA_time, utc_ndncert_siteCA_start_time, stat):
 		self.name = name
 		self.nfd_version = nfd_version
 		self.nlsr_version = nlsr_version
 		self.nlsr_start_time = nlsr_start_time
 		self.nlsr_current_time = nlsr_current_time
+		self.ndncert_siteCA_start_time = ndncert_siteCA_start_time
+		self.ndncert_siteCA_current_time = ndncert_siteCA_current_time
 		self.ndn_cxx_version = ndn_cxx_version
-		self.chronosync_version = chronosync_version
+		#self.chronosync_version = chronosync_version
 		self.psync_version = psync_version
 		self.tls_expiry = tls_expiry
 		self.sitecert_expiry = sitecert_expiry
 		self.utc_nlsr_start_time = utc_nlsr_start_time
 		self.utc_current_nlsr_time = utc_current_nlsr_time
+		self.utc_ndncert_siteCA_start_time = utc_ndncert_siteCA_start_time
+		self.utc_current_ndncert_siteCA_time = utc_current_ndncert_siteCA_time
 		self.os_version = os_version
 		if(start != ""):
                         #print "self.config_time(start):" + start
@@ -38,14 +43,14 @@ class Nentry:
 		return self.nfd_version
 	def get_nlsr_version(self):
 		return self.nlsr_version
-	def get_nlsr_version(self):
-		return self.nlsr_version
+	#def get_nlsr_version(self):
+	#	return self.nlsr_version
 	def get_ndn_cxx_version(self):
 		return self.ndn_cxx_version
 	def get_psync_version(self):
 		return self.psync_version
-	def get_chronosync_version(self):
-		return self.chronosync_version
+	#def get_chronosync_version(self):
+	#	return self.chronosync_version
 	def get_tls_expiry(self):
 		return self.tls_expiry
 	def get_sitecert_expiry(self):
@@ -63,6 +68,14 @@ class Nentry:
 		return self.utc_current_nlsr_time
 	def get_utc_nlsr_start_time(self):
 		return self.utc_nlsr_start_time
+	def get_ndncert_siteCA_start_time(self):
+		return self.ndncert_siteCA_start_time
+	def get_ndncert_siteCA_current_time(self):
+		return self.ndncert_siteCA_current_time
+	def get_utc_current_ndncert_siteCA_time(self):
+		return self.utc_current_ndncert_siteCA_time
+	def get_utc_ndncert_siteCA_start_time(self):
+		return self.utc_ndncert_siteCA_start_time
 	def get_node_time(self):
 		return self.node_time
 	def get_machine_time(self):
@@ -87,7 +100,7 @@ def get_node_info(xml_string, uni_name, versions_filename):
         #print "get_node_info() uni_name " + uni_name + " versions_filename " + versions_filename
 	nlsr_version = ""
 	ndn_cxx_version = ""
-	chronosync_version = ""
+	#chronosync_version = ""
 	psync_version = ""
 	tls_expiry = ""
 	sitecert_expiry = ""
@@ -108,13 +121,16 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	
 	if(len(xml_string) == 0):
                 #print "get_node_info() marking " + uni_name + " OFFLINE because of empty xml_string"
-		return Nentry(uni_name, "", "", "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "OFFLINE")
+		#return Nentry(uni_name, "", "", "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "", "", "", "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "", "", "", "", "OFFLINE")
 	try:
 		xml = parseString(xml_string)
 	except Exception as e:
                 print "get_node_info() marking " + uni_name + " OFFLINE because of exception"
                 print "  xml_string: " + xml_string
-		return Nentry(uni_name, "", "", "", "", "", "", "", "", "",  machine_time, "", "", "","", "",  "OFFLINE")
+		#return Nentry(uni_name, "", "", "", "", "", "", "", "", "",  machine_time, "", "", "","", "",  "OFFLINE")
+		#return Nentry(uni_name, "", "", "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "", "", "", "", "OFFLINE")
+		return Nentry(uni_name, "", "", "", "", "", "", "", "",  machine_time, "", "", "", "", "", "", "", "", "", "OFFLINE")
 
         print "found " + uni_name
         #print "xml_string: " + xml_string
@@ -137,8 +153,8 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	tls_expiry,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_sitecert_expiry.sh",uni_name], stdout=subprocess.PIPE)
 	sitecert_expiry,err = p.communicate()
-	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_libchronosync.sh",uni_name], stdout=subprocess.PIPE)
-	chronosync_version,err = p.communicate()
+	#p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_libchronosync.sh",uni_name], stdout=subprocess.PIPE)
+	#chronosync_version,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_libpsync.sh",uni_name], stdout=subprocess.PIPE)
 	psync_version,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_nlsr.sh",uni_name], stdout=subprocess.PIPE)
@@ -151,10 +167,18 @@ def get_node_info(xml_string, uni_name, versions_filename):
 	utc_current_nlsr_time,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_utc_nlsr_start_time.sh",uni_name], stdout=subprocess.PIPE)
 	utc_nlsr_start_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_ndncert_site_ca_start_time.sh",uni_name], stdout=subprocess.PIPE)
+	ndncert_siteCA_start_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_ndncert_site_ca_current_time.sh",uni_name], stdout=subprocess.PIPE)
+	ndncert_siteCA_current_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_utc_current_ndncert_site_ca_time.sh",uni_name], stdout=subprocess.PIPE)
+	utc_current_ndncert_siteCA_time,err = p.communicate()
+	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_utc_ndncert_site_ca_start_time.sh",uni_name], stdout=subprocess.PIPE)
+	utc_ndncert_siteCA_start_time,err = p.communicate()
 
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_ndn-cxx.sh",uni_name], stdout=subprocess.PIPE)
 	ndn_cxx_version,err = p.communicate()
 	p = subprocess.Popen(["/home/jdd/WU-ARL/ndnstatus/ndn_prefix/get_os.sh",uni_name], stdout=subprocess.PIPE)
 	os_version,err = p.communicate()
-        #print uni_name + " chronosync_version " + chronosync_version
-	return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, psync_version, tls_expiry, sitecert_expiry, os_version, start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, "ONLINE")
+	#return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, chronosync_version, psync_version, tls_expiry, sitecert_expiry, os_version, start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, ndncert_siteCA_start_time, ndncert_siteCA_current_time, utc_current_ndncert_siteCA_time, utc_ndncert_siteCA_start_time, "ONLINE")
+	return Nentry(uni_name, nfd_version, nlsr_version, ndn_cxx_version, psync_version, tls_expiry, sitecert_expiry, os_version, start, machine_time, node_time, nlsr_start_time, nlsr_current_time, utc_current_nlsr_time, utc_nlsr_start_time, ndncert_siteCA_start_time, ndncert_siteCA_current_time, utc_current_ndncert_siteCA_time, utc_ndncert_siteCA_start_time, "ONLINE")
