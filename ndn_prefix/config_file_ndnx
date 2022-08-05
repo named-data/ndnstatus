@@ -1,4 +1,5 @@
 # Nodes
+n(https://testbed-ndn-rg.stei.itb.ac.id:443/, id/ac/itb, ITB, ndn:/ndn/id/ac/itb)
 #n(https://tntech.testbed.named-data.net:443/, edu/tntech, TNTECH, ndn:/ndn/edu/tntech)
 n(https://ndntestbed.iiit.ac.in:443/, in/ac/iiith, IIITH, ndn:/ndn/in/ac/iiith)
 #n(https://mumbai.testbed.named-data.net:443/, aws/mumbai, MUMBAI_AWS, ndn:/ndn/aws/mumbai)

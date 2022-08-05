@@ -1,4 +1,22 @@
 {
+    "ITB": {
+        "name": "School of Electrical Engineering and Informatics(STEI) Bandung Institute of Technology, Indonesia",
+        "shortname": "ITB",
+        "site": "http://testbed-ndn-rg.stei.itb.ac.id:80/",
+        "https": "http://testbed-ndn-rg.stei.itb.ac.id:443/",
+	"ip_addresses": [ "167.205.57.173" ],
+	"hr_angle": "2.35943133820954",
+	"hr_radius": "18.5144816201633",
+        "backbone": false,
+        "ws-tls": true,
+        "prefix": "ndn:/ndn/id/ac/itb",
+        "fch-enabled": true,
+        "ndn-up": true,
+	"neighbors": [],
+	"memsize": "32G",
+	"_real_position": [ -6.89148,107.6084704],
+	"position": [ -6.89148,107.6084704]
+    },
     "IIITH": {
         "name": "International Institute of Information Technology, Hyderabad, India",
         "shortname": "IIITH",

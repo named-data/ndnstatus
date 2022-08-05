@@ -202,6 +202,9 @@ def NDN_graph():
         if node == "UFBA":
           y = y + 36.5
           x = x - 3
+        if node == "ITB":
+          y = y + 37.5
+          #x = x - 3
         #if node == "AAU":
         #  x = x - 1
         #  y = y + 1.3

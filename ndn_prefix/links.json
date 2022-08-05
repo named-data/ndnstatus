@@ -496,5 +496,35 @@
         "nlsr_weight": 90,
         "start": "PADUA",
         "end": "IIITH"
+    },
+    {
+        "id": 195,
+        "nlsr_weight": 132,
+        "start": "ITB",
+        "end": "ARIZONA"
+    },
+    {
+        "id": 196,
+        "nlsr_weight": 132,
+        "start": "ITB",
+        "end": "BASEL"
+    },
+    {
+        "id": 197,
+        "nlsr_weight": 102,
+        "start": "ITB",
+        "end": "IIITH"
+    },
+    {
+        "id": 198,
+        "nlsr_weight": 42,
+        "start": "ITB",
+        "end": "ANYANG"
+    },
+    {
+        "id": 199,
+        "nlsr_weight": 82,
+        "start": "ITB",
+        "end": "OSAKA"
     }
 ]
